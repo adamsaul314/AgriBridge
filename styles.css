@@ -370,28 +370,29 @@ body {
   }
 
   @media (max-width: 768px) {
-
-    /* Navigation Layout */
     .nav-wrapper {
       display: flex;
       flex-direction: column;
       height: auto;
-      align-items: center;
-      gap: 10px;
       padding: 10px;
+      align-items: center;
+      background-color: white;
+      gap: 10px;
     }
   
     .item,
     .item-1,
     .item-7 {
+      width: 100%;
       justify-content: center;
       padding: 10px 0;
-      width: 100%;
       text-align: center;
+      font-size: 16px;
     }
   
     .logo {
       height: 60px;
+      margin-bottom: 10px;
     }
   
     /* Hero Section */
