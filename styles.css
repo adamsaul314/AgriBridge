@@ -3,14 +3,14 @@ html, body {
     padding: 0;
     width: 100%; 
     height: 100%; 
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .nav-wrapper{
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr 2fr;
-    height: 60px;
+    height: 80px;
     padding: 0; 
     max-width: 1200px;
     margin: 0 auto; 
@@ -64,7 +64,7 @@ html, body {
  }
 
  .logo{
-    height: 65px;
+    height: 75px;
     
  }
 
@@ -73,6 +73,8 @@ html, body {
     width: 100%;
     height: 100vh;  
     overflow: hidden;  
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
+
 }
 
 .video-background {
@@ -137,3 +139,168 @@ html, body {
 .join-button:hover {
     background-color: #218838; 
 }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+  }
+  
+  /* About Operation Section */
+  .about-operation {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #eef2f3 0%, #ffffff 100%);
+  }
+  
+  .about-operation .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .about-operation .content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .about-operation .text {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .about-operation h2 {
+    font-size: 2.8rem;
+    color: #023047;
+    margin-bottom: 25px;
+    position: relative;
+  }
+  
+  .about-operation h2::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 4px;
+    background-color: #ffb703;
+    margin-top: 10px;
+    border-radius: 2px;
+  }
+  
+  .about-operation p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  
+  .about-operation .image {
+    flex: 1;
+    min-width: 280px;
+  }
+  
+  .about-operation .image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+
+.nav a {
+    color: inherit;             
+    text-decoration: none;      
+  }
+
+  .workers-banner {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background-image: url('assets/images/workerImage.jpg'); 
+    background-size: cover; 
+    background-position: center;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .workers-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px); 
+    z-index: 0;
+  }
+  
+  .workers-banner-content {
+    text-align: center;
+    color: white;
+    z-index: 1;
+    padding: 20px 30px;
+    max-width: 800px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+  }
+  
+  .workers-banner-content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .workers-banner-content p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+  
+  .services-irish {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f4f7f6 100%);
+  }
+  
+  .services-irish .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;  /* Ensure content is centered */
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+  }
+  
+  .services-irish .text {
+    flex: 1 1 60%;
+    min-width: 300px;
+  }
+  
+  .services-irish .text h2 {
+    font-size: 2rem;
+    margin-top: 30px;
+    color: #023047;
+    position: relative;
+  }
+  
+  .services-irish .text h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #ffb703;
+    margin-top: 10px;
+    border-radius: 2px;
+  }
+  
+  .services-irish .text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 18px;
+  }
+  
+ 
+  
