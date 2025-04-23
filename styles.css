@@ -6,6 +6,10 @@ html, body {
     /* overflow: hidden; */
 }
 
+.hidden {
+  display: none;
+}
+
 .nav-wrapper{
     display: grid;
     grid-template-rows: 1fr;
@@ -551,6 +555,146 @@ body {
   }
   
   
+ 
   
-  
-  
+  .home-intro {
+    background: url('assets/gallery/IMG_4293.JPG') no-repeat center center/cover; /* Replace with your image path */
+    padding: 80px 0;
+    color: white;
+    position: relative;
+    background-attachment: fixed; /* Optional: Makes the background scroll with the content */
+}
+
+.home-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+.home-intro h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.home-intro p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.option-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.card a {
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #28a745;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  background-color: #218838;
+}
+
+.cta-button:active {
+  transform: scale(0.98);
+}
+
+/* Icons Section (Underneath Hero Section) */
+.info-section {
+  padding: 50px 20px;
+  background-color: #f9f9f9; 
+}
+
+.info-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.icon-box {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.icon-box i {
+  font-size: 3rem;
+  color: #28a745; /* Icon color */
+  margin-bottom: 20px;
+}
+
+.icon-box h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.icon-box p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.icon-box:hover {
+  transform: translateY(-10px);
+}
+
+@media (max-width: 768px) {
+  .option-cards {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .info-icons {
+      grid-template-columns: 1fr 1fr;
+  }
+
+  .icon-box i {
+      font-size: 2.5rem;
+  }
+}
