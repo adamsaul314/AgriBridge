@@ -226,7 +226,7 @@ body {
     text-decoration: none;      
   }
 
-  .workers-banner {
+  /* .workers-banner {
     position: relative;
     width: 100%;
     height: 250px;
@@ -252,9 +252,10 @@ body {
     background-position: center;
     filter: blur(3px); 
     z-index: 0;
-  }
+  } */
   
   .workers-banner-content {
+    position: relative;
     text-align: center;
     color: white;
     z-index: 1;

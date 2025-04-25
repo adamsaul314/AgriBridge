@@ -18,40 +18,49 @@
 <body>
 
    <!-- Navbar -->
-   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-    <div class="container">
-      <!-- Logo Section -->
-      <a class="navbar-brand" href="index.html">
-        <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
-      </a>
-  
-      <!-- Toggler Button for Mobile View -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Navbar Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-          <!-- These links will be in the center -->
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="gallery.html">Gallery</a>
-          </li>
-        </ul>
-  
-        <!-- Contact Us Button (on the right) -->
-        <div class="d-flex">
-          <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
+    </a>
+
+    <!-- Toggler Button for Mobile View -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="gallery.html">Gallery</a>
+        </li>
+
+        <!-- Services Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="servicesWorker.html">For Worker</a></li>
+            <li><a class="dropdown-item" href="servicesContractor.html">For Contractors</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Contact Us Button-->
+      <div class="d-flex">
+        <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
  <!-- Gallery Section -->
 <div class="container py-5">
@@ -194,42 +203,44 @@
 
 
 
-  <!-- Footer Section -->
-  <footer class="bg-dark text-white py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <a href="index.html">
-            <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" class="logo" style="height: 40px;" />
-          </a>
-          <p>We connect skilled workers and top agricultural contractors in New Zealand.</p>
-        </div>
-        <div class="col-md-4 mb-3">
-          <h4>Navigation</h4>
-          <ul class="list-unstyled">
-            <li><a href="index.html" class="text-white">Home</a></li>
-            <li><a href="about.html" class="text-white">About Us</a></li>
-            <li><a href="gallery.html" class="text-white">Gallery</a></li>
-            <li><a href="contact.html" class="text-white">Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-3">
-          <h4>Get in Touch</h4>
-          <ul class="list-unstyled">
-            <li><i class="fas fa-phone-alt"></i> +123 456 789</li>
-            <li><i class="fas fa-envelope"></i> info@agribridge.com</li>
-            <li><i class="fas fa-map-marker-alt"></i> New Zealand, Auckland</li>
-          </ul>
-        </div>
+   <!-- Footer Section -->
+<footer class="bg-dark text-white py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <a href="index.html">
+          <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" class="logo" style="height: 40px;" />
+        </a>
+        <p>We connect skilled workers and top agricultural contractors in New Zealand.</p>
       </div>
-      <div class="text-center">
-        <a href="https://facebook.com" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://twitter.com" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-twitter"></i></a>
-        <a href="https://linkedin.com" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://instagram.com" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-instagram"></i></a>
+      <div class="col-md-4 mb-3">
+        <h4>Navigation</h4>
+        <ul class="list-unstyled">
+          <li><a href="index.html" class="text-white">Home</a></li>
+          <li><a href="about.html" class="text-white">About Us</a></li>
+          <li><a href="gallery.html" class="text-white">Gallery</a></li>
+          <li><a href="contact.html" class="text-white">Contact Us</a></li>
+          <li><a href="servicesWorker.html" class="text-white">For Worker</a></li>
+          <li><a href="servicesContractor.html" class="text-white">For Contractors</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h4>Get in Touch</h4>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-phone-alt"></i> +123 456 789</li>
+          <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
+          <li><i class="fas fa-map-marker-alt"></i> New Zealand, Auckland</li>
+        </ul>
       </div>
     </div>
-  </footer>
+    <div class="text-center">
+      <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank" class="social-icon text-white mx-2"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-tiktok"></i></a>     
+      <a href="https://instagram.com" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</footer>
+
 
   <!-- Bootstrap JS and Popper.js -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
