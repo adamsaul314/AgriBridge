@@ -1,51 +1,66 @@
-
+document.addEventListener("DOMContentLoaded", function () {
   const galleryItems = document.querySelectorAll(".gallery-item");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxVideo = document.getElementById("lightbox-video");
-  const closeBtn = document.querySelector(".lightbox .close");
-  const prevBtn = document.querySelector(".lightbox .prev");
-  const nextBtn = document.querySelector(".lightbox .next");
+  const closeBtn = document.querySelector(".close");
+  const prevBtn = document.querySelector(".prev");
+  const nextBtn = document.querySelector(".next");
 
-  let mediaElements = [];
-  let currentIndex = 0;
-
-  galleryItems.forEach((item, index) => {
-    const media = item.querySelector("img, video");
-    mediaElements.push(media);
-
-    item.addEventListener("click", () => {
-      currentIndex = index;
-      showMedia(currentIndex);
+  // Open lightbox when clicking on an image
+  galleryItems.forEach(item => {
+    item.addEventListener("click", function (e) {
+      const imgSrc = e.currentTarget.getAttribute("data-target"); 
+      lightbox.classList.add("visible");
+      lightboxImg.src = imgSrc; 
     });
   });
 
-  function showMedia(index) {
-    const media = mediaElements[index];
-    lightbox.classList.remove("hidden");
+  closeBtn.addEventListener("click", function () {
+    lightbox.classList.remove("visible");
+  });
 
-    if (media.tagName === "IMG") {
-      lightboxImg.src = media.src;
-      lightboxImg.style.display = "block";
-      lightboxVideo.style.display = "none";
-    } else {
-      lightboxVideo.src = media.querySelector("source").src;
-      lightboxImg.style.display = "none";
-      lightboxVideo.style.display = "block";
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) {
+      lightbox.classList.remove("visible");
     }
+  });
+
+  let currentIndex = 0;
+  const images = Array.from(galleryItems).map(item => item.getAttribute("data-target"));
+
+  function showImage(index) {
+    lightboxImg.src = images[index];
   }
 
-  function closeLightbox() {
-    lightbox.classList.add("hidden");
-    lightboxVideo.pause();
-  }
+  nextBtn.addEventListener("click", function (e) {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+    e.stopPropagation(); 
+  });
 
-  function changeMedia(step) {
-    currentIndex = (currentIndex + step + mediaElements.length) % mediaElements.length;
-    showMedia(currentIndex);
-  }
+  prevBtn.addEventListener("click", function (e) {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+    e.stopPropagation(); 
+  });
+});
 
-  closeBtn.addEventListener("click", closeLightbox);
-  prevBtn.addEventListener("click", () => changeMedia(-1));
-  nextBtn.addEventListener("click", () => changeMedia(1));
 
+const workerTab = document.getElementById('worker-tab');
+    const employerTab = document.getElementById('employer-tab');
+    const workerForm = document.getElementById('worker-form');
+    const employerForm = document.getElementById('employer-form');
+
+    workerTab.addEventListener('click', () => {
+      workerTab.classList.add('active');
+      employerTab.classList.remove('active');
+      workerForm.style.display = 'block';
+      employerForm.style.display = 'none';
+    });
+
+    employerTab.addEventListener('click', () => {
+      employerTab.classList.add('active');
+      workerTab.classList.remove('active');
+      employerForm.style.display = 'block';
+      workerForm.style.display = 'none';
+    });
