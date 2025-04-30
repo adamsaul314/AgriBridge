@@ -991,3 +991,8 @@ footer .container {
 .logo {
   height: 50px;
 }
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}

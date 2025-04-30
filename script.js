@@ -1,22 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
   const galleryItems = document.querySelectorAll(".gallery-item");
   const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxContent = document.getElementById("lightbox-content"); // new div to handle both image and video
+  const lightboxContent = document.getElementById("lightbox-content");
   const closeBtn = document.querySelector(".close");
   const prevBtn = document.querySelector(".prev");
   const nextBtn = document.querySelector(".next");
 
-  // Open lightbox when clicking on an image or video
   galleryItems.forEach(item => {
     item.addEventListener("click", function (e) {
       const mediaSrc = e.currentTarget.getAttribute("data-target"); 
       const fileExtension = mediaSrc.split('.').pop().toLowerCase();
 
-      // Reset the lightbox content before changing
       lightboxContent.innerHTML = '';
 
-      // Check if it's an image or a video
       if (fileExtension === "mp4") {
         const videoElement = document.createElement("video");
         videoElement.controls = true;
@@ -25,25 +21,28 @@ document.addEventListener("DOMContentLoaded", function () {
         source.type = "video/mp4";
         videoElement.appendChild(source);
         lightboxContent.appendChild(videoElement);
-      } else if (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png" || fileExtension === "gif") {
+      } else if (["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
         const imageElement = document.createElement("img");
         imageElement.src = mediaSrc;
         lightboxContent.appendChild(imageElement);
       }
 
       lightbox.classList.add("visible");
+      document.body.classList.add("no-scroll"); // 🔒 Disable scroll
     });
   });
 
-  closeBtn.addEventListener("click", function () {
+  function closeLightbox() {
     lightbox.classList.remove("visible");
-    lightboxContent.innerHTML = ''; // Remove media when closing
-  });
+    lightboxContent.innerHTML = '';
+    document.body.classList.remove("no-scroll"); // ✅ Enable scroll
+  }
+
+  closeBtn.addEventListener("click", closeLightbox);
 
   lightbox.addEventListener("click", function (e) {
     if (e.target === lightbox) {
-      lightbox.classList.remove("visible");
-      lightboxContent.innerHTML = ''; // Remove media when closing
+      closeLightbox();
     }
   });
 
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       source.type = "video/mp4";
       videoElement.appendChild(source);
       lightboxContent.appendChild(videoElement);
-    } else if (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png" || fileExtension === "gif") {
+    } else if (["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
       const imageElement = document.createElement("img");
       imageElement.src = mediaSrc;
       lightboxContent.appendChild(imageElement);
@@ -80,5 +79,30 @@ document.addEventListener("DOMContentLoaded", function () {
     currentIndex = (currentIndex - 1 + mediaFiles.length) % mediaFiles.length;
     showMedia(currentIndex);
     e.stopPropagation(); 
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Tab functionality for Contact Page
+  const workerTab = document.getElementById("worker-tab");
+  const employerTab = document.getElementById("employer-tab");
+
+  const workerForm = document.getElementById("worker-form");
+  const employerForm = document.getElementById("employer-form");
+
+  workerTab.addEventListener("click", function () {
+    workerForm.style.display = "block";
+    employerForm.style.display = "none";
+
+    workerTab.classList.add("active");
+    employerTab.classList.remove("active");
+  });
+
+  employerTab.addEventListener("click", function () {
+    workerForm.style.display = "none";
+    employerForm.style.display = "block";
+
+    employerTab.classList.add("active");
+    workerTab.classList.remove("active");
   });
 });
