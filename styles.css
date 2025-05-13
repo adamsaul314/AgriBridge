@@ -1148,11 +1148,10 @@ footer .container {
   height: 100%;
 }
 
-/* Carousel Hero Section */
-.home-intro, 
+/* Desktop default - full screen */
+.home-intro,
 .carousel-inner,
-.carousel-item,
-.hero-bg {
+.carousel-item {
   height: 100vh;
   min-height: 700px;
   position: relative;
@@ -1161,34 +1160,133 @@ footer .container {
 .hero-bg {
   object-fit: cover;
   width: 100%;
+  height: 100%;
 }
 
+/* Overlay stays centered */
 .carousel-overlay {
-   position: absolute;
-  top: 0; 
-   left: 0; 
-   z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  padding-top: 80px;
-  background: rgba(0, 0, 0, 0.3); 
-  color: white; 
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  overflow-y: auto;
 }
 
-/* Responsive adjustments */
+/* --- Mobile Fix --- */
 @media (max-width: 768px) {
-  
-  .home-intro h1 {
-    font-size: 2.2rem;
+  .home-intro,
+  .carousel-inner,
+  .carousel-item,
+  .hero-bg {
+    height: 100vh; /* Maintain image height */
+    min-height: 500px; /* Ensure image doesn’t collapse */
   }
-  
+
+  .carousel-overlay {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto; /* Allow content scroll */
+    text-align: center;
+  }
+
+  .carousel-overlay .container {
+    max-height: 100%;
+  }
+
+  .home-intro h1 {
+    font-size: 2rem;
+  }
+
   .home-intro .lead {
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .carousel-overlay .card {
+    width: 90%;
+    margin-bottom: 1rem;
   }
 }
+/* Desktop default - full screen */
+.home-intro,
+.carousel-inner,
+.carousel-item {
+  height: 100vh;
+  min-height: 700px;
+  position: relative;
+}
+
+.hero-bg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Overlay stays centered */
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  overflow-y: auto;
+}
+
+/* --- Mobile Fix --- */
+@media (max-width: 768px) {
+  .home-intro,
+  .carousel-inner,
+  .carousel-item,
+  .hero-bg {
+    height: 100vh; /* Maintain image height */
+    min-height: 500px; /* Ensure image doesn’t collapse */
+  }
+
+  .carousel-overlay {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto; /* Allow content scroll */
+    text-align: center;
+  }
+
+  .carousel-overlay .container {
+    max-height: 100%;
+  }
+
+  .home-intro h1 {
+    font-size: 2rem;
+  }
+
+  .home-intro .lead {
+    font-size: 1rem;
+  }
+
+  .carousel-overlay .card {
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+}
+
 
 /* Testimonial Carousel Section */
 
