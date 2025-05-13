@@ -106,3 +106,41 @@ document.addEventListener("DOMContentLoaded", function () {
     workerTab.classList.remove("active");
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const itemsPerPage = 9;
+  const galleryContainer = document.getElementById("gallery-items");
+  const paginationContainer = document.getElementById("pagination");
+
+  const galleryItems = Array.from(galleryContainer.children);
+  const totalPages = Math.ceil(galleryItems.length / itemsPerPage);
+
+  function renderPage(page) {
+    // Hide all items
+    galleryItems.forEach(item => item.classList.add("d-none"));
+
+    // Show items for the current page
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    galleryItems.slice(start, end).forEach(item => item.classList.remove("d-none"));
+
+    // Update pagination
+    renderPagination(page);
+  }
+
+  function renderPagination(currentPage) {
+    paginationContainer.innerHTML = "";
+    for (let i = 1; i <= totalPages; i++) {
+      const li = document.createElement("li");
+      li.className = `page-item ${i === currentPage ? "active" : ""}`;
+      li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+      li.addEventListener("click", (e) => {
+        e.preventDefault();
+        renderPage(i);
+      });
+      paginationContainer.appendChild(li);
+    }
+  }
+
+  renderPage(1); // Initial render
+});
