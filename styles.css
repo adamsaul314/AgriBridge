@@ -1330,3 +1330,55 @@ footer .container {
   min-height: unset !important;
   padding: 2rem 0;
 }
+
+img[loading="lazy"],
+video[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+img[loading="lazy"]:not([src=""]),
+video[loading="lazy"]:not([src=""]) {
+  opacity: 1;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+  gap: 10px;
+}
+
+.pagination .page-item .page-link {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #f2f2f2;
+  border-color: #999;
+  text-decoration: none;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: #f8f8f8;
+  color: #aaa;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+.pagination .page-link {
+  font-size: 0.9rem;
+}
