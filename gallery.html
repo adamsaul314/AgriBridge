@@ -4,346 +4,425 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gallery - Agribridge</title>
-  
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="/assets/logos/Favicon Transparent.ico" type="image/x-icon">
-
-  
 </head>
 <body>
 
-     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">
-      <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
-    </a>
-
-    <!-- Toggler Button for Mobile View -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="gallery.html">Gallery</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="faq.html">FAQs</a>
-        </li>
-
-        <!-- Services Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Services
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="servicesWorker.html">For Worker</a></li>
-            <li><a class="dropdown-item" href="servicesContractor.html">For Contractors</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <!-- Contact Us Button-->
-      <div class="d-flex">
-        <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="servicesWorker.html">Work Abroad</a></li>
+              <li><a class="dropdown-item" href="servicesContractor.html">Find Staff</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
-
- <!-- Gallery Section -->
-<div class="container py-5">
-  <div id="gallery-items" class="row">
-    <!-- Images -->
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_0752.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_0752.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-
-
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_0753.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_0753.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_0754.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_0754.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_2474.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_2474.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_2543.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_2543.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_2836.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_2836.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4268.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4268.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4272.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4272.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4273.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4273.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4276.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4276.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4283.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4283.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4286.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4286.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_4293.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_4293.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_8270.jpg">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/IMG_8270.jpg" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/pic%204%20website%201.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/pic%204%20website%201.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/pic%204%20website%202.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/pic%204%20website%202.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_2545.mp4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/IMG_2545.mp4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_2562.mp4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/IMG_2562.mp4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_2604.mp4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/IMG_2604.mp4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/IMG_8391.mp4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/IMG_8391.mp4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241117124607_0100_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241117124607_0100_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241125082546_0155_D.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/DJI_20241125082546_0155_D.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241208092205_0253_D.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/DJI_20241208092205_0253_D.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241208093511_0274_D.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/DJI_20241208093511_0274_D.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-   
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241231075652_0161_D.JPG">
-        <img loading="lazy" src="https://storage.googleapis.com/agribridge/DJI_20241231075652_0161_D.JPG" alt="Gallery Image" class="img-fluid" />
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241117124725_0101_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241117124725_0101_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241125055602_0110_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241125055602_0110_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241125055641_0111_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241125055641_0111_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241125055748_0113_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241125055748_0113_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241125055906_0115_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241125055906_0115_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241125055946_0116_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241125055946_0116_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <a href="javascript:void(0)" class="gallery-item" data-target="assets/gallery/DJI_20241231161224_0180_D.MP4">
-        <video controls class="img-fluid" loading="lazy">
-          <source src="https://storage.googleapis.com/agribridge/DJI_20241231161224_0180_D.MP4" type="video/mp4">
-        </video>
-      </a>
-    </div>
-
-
-    
-
-
-  </div>
-
-  <nav>
-    <ul class="pagination justify-content-center" id="pagination"></ul>
   </nav>
 
-</div>
+  <!-- Gallery Hero -->
+  <section class="gallery-hero">
+    <div class="container text-center">
+      <h1>Our Gallery</h1>
+      <p>See our team in action across New Zealand's agricultural landscape</p>
+    </div>
+  </section>
 
-<!-- Lightbox (hidden by default) -->
-<div id="lightbox" class="lightbox hidden">
-  <span class="close">&times;</span>
-  <div id="lightbox-content"></div>
-  <a class="prev">&#10094;</a>
-  <a class="next">&#10095;</a>
-</div>
+  <!-- Gallery Section -->
+  <div class="container py-5">
 
+    <!-- Filter Tabs -->
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="photo">Photos</button>
+      <button class="filter-btn" data-filter="video">Videos</button>
+    </div>
 
+    <div id="gallery-items" class="gallery-grid">
 
-
-
-<!-- Footer Section -->
-<footer class="bg-dark text-white py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <a href="index.html">
-          <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" class="logo" style="height: 40px;" />
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_0752.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_0752.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
         </a>
-        <p>We connect skilled workers to agricultural contractors in New Zealand.</p>
       </div>
-      <div class="col-md-4 mb-3">
-        <h4>Navigation</h4>
-        <ul class="list-unstyled">
-          <li><a href="index.html" class="text-white">Home</a></li>
-          <li><a href="about.html" class="text-white">About Us</a></li>
-          <li><a href="gallery.html" class="text-white">Gallery</a></li>
-          <li><a href="contact.html" class="text-white">Contact Us</a></li>
-          <li><a href="servicesWorker.html" class="text-white">For Worker</a></li>
-          <li><a href="servicesContractor.html" class="text-white">For Contractors</a></li>
-          <li><a href="faq.html" class="text-white">FAQs</a></li>
-        </ul>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_0753.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_0753.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
       </div>
-      <div class="col-md-4 mb-3">
-        <h4>Get in Touch</h4>
-        <ul class="list-unstyled">
-          <li><i class="fas fa-phone-alt"></i> +61 413 421 661</li>
-          <li><i class="fa-brands fa-whatsapp"></i> +353 83 011 5057</li>
-          <li><i class="fas fa-phone-alt"></i> +353 83 011 5057</li>
-          <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
-        </ul>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_0754.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_0754.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
       </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_2474.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_2474.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_2543.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_2543.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_2836.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_2836.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4268.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4268.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4272.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4272.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4273.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4273.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4276.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4276.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4283.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4283.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4286.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4286.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_4293.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_4293.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_8270.jpg">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/IMG_8270.jpg" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/pic%204%20website%201.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/pic%204%20website%201.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/pic%204%20website%202.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/pic%204%20website%202.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Videos -->
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_2545.mp4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/IMG_2545.mp4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_2562.mp4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/IMG_2562.mp4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_2604.mp4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/IMG_2604.mp4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/IMG_8391.mp4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/IMG_8391.mp4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241117124607_0100_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241117124607_0100_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241125082546_0155_D.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/DJI_20241125082546_0155_D.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241208092205_0253_D.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/DJI_20241208092205_0253_D.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241208093511_0274_D.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/DJI_20241208093511_0274_D.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="photo">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241231075652_0161_D.JPG">
+          <div class="gallery-thumb">
+            <img data-src="https://storage.googleapis.com/agribridge/DJI_20241231075652_0161_D.JPG" alt="Gallery Image" class="lazy-img" />
+            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241117124725_0101_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241117124725_0101_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241125055602_0110_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241125055602_0110_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241125055641_0111_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241125055641_0111_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241125055748_0113_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241125055748_0113_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241125055906_0115_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241125055906_0115_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241125055946_0116_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241125055946_0116_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="gallery-card" data-type="video">
+        <a href="javascript:void(0)" class="gallery-item" data-target="https://storage.googleapis.com/agribridge/DJI_20241231161224_0180_D.MP4">
+          <div class="gallery-thumb">
+            <video data-src="https://storage.googleapis.com/agribridge/DJI_20241231161224_0180_D.MP4" class="lazy-video" muted preload="none"></video>
+            <div class="video-badge"><i class="fas fa-play"></i></div>
+            <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+          </div>
+        </a>
+      </div>
+
     </div>
-    <div class="text-center">
-      <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank" class="social-icon text-white mx-2"><i class="fa-brands fa-youtube"></i></a>
-      <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-tiktok"></i></a>     
-      <a href="https://www.instagram.com/agribridgerecruitment" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-instagram"></i></a>
-    </div>
+
+    <!-- Pagination -->
+    <nav>
+      <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
   </div>
-</footer>
 
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox-v2">
+    <div class="lightbox-backdrop"></div>
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-counter"><span id="lightbox-current">1</span> / <span id="lightbox-total">1</span></div>
+    <div id="lightbox-content" class="lightbox-media"></div>
+  </div>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <a href="index.html">
+            <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" style="height: 45px;" class="mb-3" />
+          </a>
+          <p>We connect skilled workers to agricultural contractors around the world.</p>
+          <div class="footer-socials">
+            <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/agribridgerecruitment" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="servicesWorker.html">Work Abroad</a></li>
+            <li><a href="servicesContractor.html">Find Staff</a></li>
+            <li><a href="faq.html">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Get in Touch</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-phone-alt"></i> +61 413 421 661</li>
+            <li><i class="fa-brands fa-whatsapp"></i> +353 83 011 5057</li>
+            <li><i class="fas fa-phone-alt"></i> +353 83 011 5057</li>
+            <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-  <!-- Bootstrap JS and Popper.js -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-
-  <!-- Lightbox JavaScript -->
   <script src="script.js"></script>
-
 </body>
 </html>
