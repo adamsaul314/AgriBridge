@@ -13,8 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
           el.onload = function () { el.classList.add('loaded'); };
           el.onerror = function () { el.classList.add('loaded'); };
         } else if (el.tagName === 'VIDEO' && el.dataset.src) {
+          el.preload = 'metadata';
           el.src = el.dataset.src;
-          el.onloadeddata = function () { el.classList.add('loaded'); };
+          el.onloadedmetadata = function () {
+            el.currentTime = 1;
+          };
+          el.onseeked = function () {
+            el.classList.add('loaded');
+          };
           el.onerror = function () { el.classList.add('loaded'); };
         }
         lazyObserver.unobserve(el);
