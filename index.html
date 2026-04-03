@@ -46,23 +46,10 @@
   <section class="home-hero">
     <div id="homeHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/carousel/carousel 1.jpg" class="d-block w-100 hero-bg" alt="Hero 1">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/carousel/carousel 2.JPG" class="d-block w-100 hero-bg" alt="Hero 2">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/carousel/carosuel 3.jpg" class="d-block w-100 hero-bg" alt="Hero 3">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/carousel/carousel 4.JPG" class="d-block w-100 hero-bg" alt="Hero 4">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/carousel/carousel 5.jpg" class="d-block w-100 hero-bg" alt="Hero 5">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/carousel/carousel 6.JPG" class="d-block w-100 hero-bg" alt="Hero 6">
+        <div class="carousel-item active" id="hero-video-slide">
+          <video id="hero-video" class="d-block w-100 hero-bg" autoplay muted playsinline>
+            <source src="http://34.144.225.153/WEBSITEE%20BANNNER%20ADAM.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -179,8 +166,8 @@
         <div class="col-lg-5 mb-4 mb-lg-0 order-lg-2">
           <div class="testimonial-card-home">
             <img src="http://34.144.225.153/IMG_4268.JPG" alt="Contractors" class="img-fluid rounded mb-3" />
-            <blockquote>"AgriBridge made the whole recruitment process seamless. They sent us hard-working, motivated staff who hit the ground running — exactly what we needed during our busiest season."</blockquote>
-            <cite>— NZ Employer</cite>
+            <blockquote>"James made it such and easy process. We outlined the type of work, machinery would be using for the lenght of the upcoming season. Then he did the rest from interviews, reference checks, visas, flights etc. The young guy that came was perfect. He got on with our team, loved to work, had experience in what we required and the quality of his work was excellent. I would highly reccomend using Agribridge."</blockquote>
+            <cite>— Odette Alexander Spraying, Employer</cite>
           </div>
         </div>
         <div class="col-lg-7 order-lg-1">
@@ -364,5 +351,35 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    (function () {
+      var carousel = document.getElementById('homeHeroCarousel');
+      var video = document.getElementById('hero-video');
+      if (!carousel || !video) return;
+
+      var bsCarousel = bootstrap.Carousel.getInstance(carousel) || new bootstrap.Carousel(carousel, { interval: 4000 });
+
+      // Pause carousel while video plays
+      video.addEventListener('play', function () {
+        bsCarousel.pause();
+      });
+
+      // When video ends, move to next slide and resume
+      video.addEventListener('ended', function () {
+        bsCarousel.next();
+        bsCarousel.cycle();
+      });
+
+      // If video slide is revisited, replay the video
+      carousel.addEventListener('slid.bs.carousel', function (e) {
+        if (e.to === 0) {
+          video.currentTime = 0;
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
