@@ -4,253 +4,382 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Agribridge</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="/assets/logos/Favicon Transparent.ico" type="image/x-icon">
-    
-    <script src="script.js"></script>
 </head>
 <body>
-     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">
-      <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
-    </a>
 
-    <!-- Toggler Button for Mobile View -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="gallery.html">Gallery</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="faq.html">FAQs</a>
-        </li>
-
-        <!-- Services Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Services
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="servicesWorker.html">For Worker</a></li>
-            <li><a class="dropdown-item" href="servicesContractor.html">For Contractors</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <!-- Contact Us Button-->
-      <div class="d-flex">
-        <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
-      </div>
-    </div>
-  </div>
-</nav>
-  
-
-    <!-- Hero Section with Carousel -->
-<section class="home-intro text-center text-white">
-  <div id="homeIntroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="assets/carousel/carousel 1.jpg" class="d-block w-100 hero-bg" alt="Hero Image 1">
-      </div>
-      <div class="carousel-item">
-        <img src="assets/carousel/carousel 2.JPG" class="d-block w-100 hero-bg" alt="Hero Image 2">
-      </div>
-      <div class="carousel-item">
-        <img src="assets/carousel/carosuel 3.jpg" class="d-block w-100 hero-bg" alt="Hero Image 3">
-      </div>
-      <div class="carousel-item">
-        <img src="assets/carousel/carousel 4.JPG" class="d-block w-100 hero-bg" alt="Hero Image 4">
-      </div>
-      <div class="carousel-item">
-        <img src="assets/carousel/carousel 5.jpg" class="d-block w-100 hero-bg" alt="Hero Image 5">
-      </div>
-      <div class="carousel-item">
-        <img src="assets/carousel/carousel 6.JPG" class="d-block w-100 hero-bg" alt="Hero Image 6">
-      </div>
-    </div>
-  </div>
-
-  <!-- Foreground content stays the same -->
-  <div class="carousel-overlay">
-    <div class="container py-5">
-      <h1 class="display-4">Find Services Tailored to You</h1>
-      <p class="lead">We connect skilled workers and top agricultural contractors in New Zealand.</p>
-      <div class="row justify-content-center">
-        <div class="col-md-5 mb-3 d-flex justify-content-center">
-          <div class="card shadow">
-            <div class="card-body">
-              <h2>For Workers</h2>
-              <p>Explore opportunities to work in New Zealand's agriculture industry.</p>
-              <a href="servicesWorker.html" class="btn btn-success">Learn More</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-5 mb-3 d-flex justify-content-center">
-          <div class="card shadow">
-            <div class="card-body">
-              <h2>For Agricultural Contractors</h2>
-              <p>Find skilled workers for your agricultural business.</p>
-              <a href="servicesContractor.html" class="btn btn-success">Learn More</a>
-            </div>
-          </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Services</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="servicesWorker.html">Work Abroad</a></li>
+              <li><a class="dropdown-item" href="servicesContractor.html">Find Staff</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- Testimonial Carousel Section -->
-<section class="bg-light py-5">
-  <div class="container">
-    <h2 class="text-center mb-4">What Our Workers Say</h2>
-    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+  <!-- Hero Section with Video/Carousel Background -->
+  <section class="home-hero">
+    <div id="homeHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="testimonial text-center">
-            <p class="lead">"AgriBridge made the whole process so easy – they sorted my job, tax number, bank account, and even gave travel tips. All I had to do was pack my bag! Working in New Zealand was unreal, and I learned more in one season than I ever imagined."</p>
-            <h5 class="mt-3">— James M., Co. Meath</h5>
+        <div class="carousel-item active" id="hero-video-slide">
+          <video id="hero-video" class="d-block w-100 hero-bg" autoplay muted playsinline loop>
+            <source src="http://34.144.225.153/WEBSITEE%20BANNNER%20ADAM.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="home-hero-overlay">
+      <div class="container text-center">
+        <p class="hero-subtitle">International Agricultural Recruitment Consultants</p>
+        <h1 class="hero-title">Find Services Tailored to You</h1>
+        <p class="hero-lead">AgriBridge is Ireland's leading recruitment agency for seasonal agricultural jobs in New Zealand and Australia, connecting you with trusted employers and real opportunities abroad.</p>
+        <p class="hero-countries">We offer placements across <strong>New Zealand, Australia, the UK &amp; Ireland</strong></p>
+        <div class="hero-cta-row">
+          <a href="servicesWorker.html" class="btn btn-hero-primary">Work Abroad</a>
+          <a href="servicesContractor.html" class="btn btn-hero-outline">Find Staff</a>
+        </div>
+        <a href="contact.html" class="btn btn-hero-contact mt-3"><i class="fas fa-envelope me-2"></i>Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Arrange Section -->
+  <section class="section-arrange py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">What We Arrange</h2>
+        <p class="section-subtitle">Everything you need for a smooth journey abroad</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-briefcase"></i></div>
+            <h4>Job Placement</h4>
+            <p>Matched to a role that suits your skills and experience</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="testimonial text-center">
-            <p class="lead">"I can’t thank AgriBridge enough. Everything was sorted for me before I landed – zero stress. I got to operate top-end machinery and work with a brilliant team. The whole experience was life-changing."</p>
-            <h5 class="mt-3">— Emma D., Limerick</h5>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-passport"></i></div>
+            <h4>Visa Guidance</h4>
+            <p>Working Holiday visa support from start to finish</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="testimonial text-center">
-            <p class="lead">"The lads at Agri Bridge were class to deal with – quick replies, no hassle, and they genuinely cared about getting you the right job. New Zealand is something else, and I wouldn’t have had the chance without them."</p>
-            <h5 class="mt-3">— Conor W., Tipperary</h5>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-plane"></i></div>
+            <h4>Flights Advice</h4>
+            <p>Guidance on travel planning and booking</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="testimonial text-center">
-            <p class="lead">"From the first phone call to my flight back home, AgriBridge had my back. They handled all the boring admin so I could just enjoy the work and explore NZ. I've gained massive experience and mates for life."</p>
-            <h5 class="mt-3">— Dillon K., Galway</h5>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h4>Tax Numbers</h4>
+            <p>IRD number setup for seamless financial management</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="testimonial text-center">
-            <p class="lead">"I was nervous at first, but AgriBridge made everything so smooth. They matched me with a contractor who was a perfect fit, and I learned so much about agri contracting that I’ve brought home with me."</p>
-            <h5 class="mt-3">— Liam H., Cork</h5>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-home"></i></div>
+            <h4>Accommodation</h4>
+            <p>Help securing a place to stay near your workplace</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="testimonial text-center">
-            <p class="lead">"Genuinely the best decision I ever made. AgriBridge sorted all the details – I just showed up and started working. The experience opened doors for me, and I’d go back in a heartbeat."</p>
-            <h5 class="mt-3">— Rachel F., Donegal</h5>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-car"></i></div>
+            <h4>Airport Pick-up</h4>
+            <p>Collected on arrival so you're never left stranded</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-university"></i></div>
+            <h4>Bank Account</h4>
+            <p>Help to setup overseas bank account before arrival</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-hands-helping"></i></div>
+            <h4>Ongoing Support</h4>
+            <p>We're there for you throughout your entire placement</p>
           </div>
         </div>
       </div>
-
-      <!-- Carousel Controls -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- Find Work in NZ Section -->
+  <section class="section-findwork py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7 mb-4 mb-lg-0">
+          <span class="section-label">Candidates</span>
+          <h2 class="section-title">Find Work in New Zealand</h2>
+          <p>Working in New Zealand's agricultural industry offers an incredible opportunity to grow your skills while experiencing life abroad. With roles available across the sector including tractor and machinery work, dairy farming, and dry stock farming, New Zealand is the best destination for your next step in agriculture.</p>
+          <p>With AgriBridge's support, you'll be backed throughout your journey, ensuring a safe, rewarding, and enjoyable working holiday. We provide a complete package that includes a secured job, competitive wages, accommodation, airport collection, and support setting up tax registration.</p>
+          <p>AgriBridge leads the way in connecting candidates with genuine opportunities delivering hands-on experience, international travel, and memories that last a lifetime.</p>
+          <a href="servicesWorker.html" class="btn btn-success rounded-pill px-4 py-2 mt-2">Learn More</a>
+        </div>
+        <div class="col-lg-5">
+          <div class="testimonial-card-home">
+            <img src="http://34.144.225.153/adam%20cuffine%20post.jpg" alt="Candidate working in NZ" class="img-fluid rounded mb-3" />
+            <blockquote>"It has been a great opportunity to experience a new part of the world while working at something I enjoy at the same time. I learned a lot of new things."</blockquote>
+            <cite>— Adam Cunniffe, Candidate</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Employers Section -->
+  <section class="section-employers py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 mb-4 mb-lg-0 order-lg-2">
+          <div class="testimonial-card-home">
+            <img src="http://34.144.225.153/alexander%20spraying.jpg" alt="Contractors" class="img-fluid rounded mb-3" style="max-height: 280px; width: 100%; object-fit: cover;" />
+            <blockquote>"James made it such and easy process. We outlined the type of work, machinery would be using for the lenght of the upcoming season. Then he did the rest from interviews, reference checks, visas, flights etc. The young guy that came was perfect. He got on with our team, loved to work, had experience in what we required and the quality of his work was excellent. I would highly reccomend using Agribridge."</blockquote>
+            <cite>— Odette Alexander Spraying, Employer</cite>
+          </div>
+        </div>
+        <div class="col-lg-7 order-lg-1">
+          <span class="section-label">Employers</span>
+          <h2 class="section-title">Find the Right Staff for You</h2>
+          <p>We understand that sourcing reliable staff can be challenging, and securing access to key talent remains a big concern within the agricultural industry. That's where we come in to help — we have access to top quality staff looking for job opportunities in New Zealand and Australia.</p>
+          <p>We collaborate with UK and Irish Young Farmers, Agricultural Universities, and Colleges, leveraging our social media platforms to promote opportunities. Our team of recruitment experts is committed to guiding you throughout the hiring process, ensuring a smooth and efficient experience.</p>
+          <a href="servicesContractor.html" class="btn btn-outline-dark rounded-pill px-4 py-2 mt-2">Employer Info</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Where You Can Work Section -->
+  <section class="section-destinations py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Where You Can Work</h2>
+        <p class="section-subtitle">Seasonal opportunities across two incredible countries</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="destination-card">
+            <div class="destination-flag">NZ</div>
+            <h3>New Zealand</h3>
+            <ul class="destination-list">
+              <li><i class="fas fa-tractor me-2"></i><strong>Tractor &amp; Machinery Work</strong> <span class="season-date">Sep – Mar</span></li>
+              <li><i class="fas fa-cow me-2"></i><strong>Dairy Farming</strong></li>
+              <li><i class="fas fa-users me-2"></i><strong>Contracting Crews</strong></li>
+            </ul>
+            <p class="destination-note">Typical placements run 4–6 months. Suits students, graduates, and experienced operators.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="destination-card">
+            <div class="destination-flag">AU</div>
+            <h3>Australia</h3>
+            <ul class="destination-list">
+              <li><i class="fas fa-wheat-awn me-2"></i><strong>Broadacre Farming</strong></li>
+              <li><i class="fas fa-tractor me-2"></i><strong>Harvest &amp; Machinery</strong></li>
+              <li><i class="fas fa-seedling me-2"></i><strong>Seeding Season</strong></li>
+              <li><i class="fas fa-cow me-2"></i><strong>Livestock Roles</strong></li>
+            </ul>
+            <p class="destination-note"><strong>Winter Crops</strong> (Wheat, Barley, Canola, Pulses): Sown Apr–Jun, harvested Oct–Jan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Icons Section -->
-    <section class="info-section py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4 mb-4">
-                    <div class="icon-box">
-                        <i class="fas fa-briefcase fa-3x mb-3"></i>
-                        <h3>Opportunities</h3>
-                        <p>Discover a wide range of agricultural roles in New Zealand.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="icon-box">
-                        <i class="fas fa-users fa-3x mb-3"></i>
-                        <h3>Community</h3>
-                        <p>Join a network of skilled workers and industry leaders.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="icon-box">
-                        <i class="fas fa-globe fa-3x mb-3"></i>
-                        <h3>Global Reach</h3>
-                        <p>Connecting talent with New Zealand’s agricultural businesses.</p>
-                    </div>
-                </div>
+  <!-- About AgriBridge / College Placements -->
+  <section class="section-about-home py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <img src="http://34.144.225.153/IMG_0130.JPG" alt="AgriBridge team" class="img-fluid rounded shadow" />
+        </div>
+        <div class="col-lg-6">
+          <h2 class="section-title">About AgriBridge</h2>
+          <p>AgriBridge has helped students and graduates from leading agricultural colleges across Ireland secure paid farming placements abroad. We've successfully supported candidates from <strong>Ballyhaise Agricultural College</strong>, <strong>Mountbellew Agricultural College</strong>, <strong>Kildalton Agricultural College</strong>, <strong>University College Dublin</strong>, and the <strong>University of Limerick</strong>.</p>
+          <p>Through our trusted network of farmers and contractors, we guide candidates through the entire process, from applications and visas to travel, tax numbers, and arrival. We make it easy to gain hands-on agricultural experience overseas.</p>
+          <a href="about.html" class="btn btn-success rounded-pill px-4 py-2 mt-2">Read Our Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Carousel -->
+  <section class="section-testimonials py-5">
+    <div class="container">
+      <h2 class="section-title text-center mb-4">What Our Workers Say</h2>
+      <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"AgriBridge made the whole process so easy – they sorted my job, tax number, bank account, and even gave travel tips. All I had to do was pack my bag! Working in New Zealand was unreal, and I learned more in one season than I ever imagined."</p>
+              <h5>— James M.</h5>
             </div>
+          </div>
+          <!-- <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"I can't thank AgriBridge enough. Everything was sorted for me before I landed – zero stress. I got to operate top-end machinery and work with a brilliant team. The whole experience was life-changing."</p>
+              <h5>— Emma D., Limerick</h5>
+            </div>
+          </div> -->
+          <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"The lads at Agri Bridge were class to deal with – quick replies, no hassle, and they genuinely cared about getting you the right job. New Zealand is something else, and I wouldn't have had the chance without them."</p>
+              <h5>— Conor W.</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"I would recommend it for someone who wants to work in New Zealand they won’t have any struggles before getting out and things will go smoothly for them."</p>
+              <h5>— James Kelly</h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"I was nervous at first, but AgriBridge made everything so smooth. They matched me with a contractor who was a perfect fit, and I learned so much about agri contracting that I've brought home with me."</p>
+              <h5>— Liam H.</h5>
+            </div>
+          </div>
+            <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"The best thing I have done with my life so far the friends you make and the places you see are unimaginable."</p>
+              <h5>— David Hennessy</h5>
+            </div>
+          </div>
+           <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"Working in New Zealand offers many new experiences. It's very cool to see how differently some things are done. The landscape you work in here is also very impressive."</p>
+              <h5>— Jonas Callsen </h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="testimonial-slide">
+              <i class="fas fa-quote-left testimonial-quote-icon"></i>
+              <p>"It’s been 10/10 got to learn completely different ways contacting's done and how land can be worked Learned how to drive a chopper a 4-rotor rake got more experience on everything and learned quicker ways of doing things"</p>
+              <h5>— Aidan Collins</h5>
+            </div>
+          </div>
         </div>
-    </section>
-
-     <!-- Footer Section -->
-<footer class="bg-dark text-white py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <a href="index.html">
-          <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" class="logo" style="height: 40px;" />
-        </a>
-        <p>We connect skilled workers to agricultural contractors in New Zealand.</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h4>Navigation</h4>
-        <ul class="list-unstyled">
-          <li><a href="index.html" class="text-white">Home</a></li>
-          <li><a href="about.html" class="text-white">About Us</a></li>
-          <li><a href="gallery.html" class="text-white">Gallery</a></li>
-          <li><a href="contact.html" class="text-white">Contact Us</a></li>
-          <li><a href="servicesWorker.html" class="text-white">For Worker</a></li>
-          <li><a href="servicesContractor.html" class="text-white">For Contractors</a></li>
-          <li><a href="faq.html" class="text-white">FAQs</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h4>Get in Touch</h4>
-        <ul class="list-unstyled">
-          <li><i class="fas fa-phone-alt"></i> +61 413 421 661</li>
-          <li><i class="fa-brands fa-whatsapp"></i> +353 83 011 5057</li>
-          <li><i class="fas fa-phone-alt"></i> +353 83 011 5057</li>
-          <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
-        </ul>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
       </div>
     </div>
-    <div class="text-center">
-      <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank" class="social-icon text-white mx-2"><i class="fa-brands fa-youtube"></i></a>
-      <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-tiktok"></i></a>     
-      <a href="https://www.instagram.com/agribridgerecruitment" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-instagram"></i></a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <a href="index.html">
+            <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" style="height: 45px;" class="mb-3" />
+          </a>
+          <p>We connect skilled workers to agricultural contractors around the world.</p>
+          <div class="footer-socials">
+            <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/agribridgerecruitment" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="servicesWorker.html">Work Abroad</a></li>
+            <li><a href="servicesContractor.html">Find Staff</a></li>
+            <li><a href="faq.html">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Get in Touch</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-phone-alt"></i> +61 413 421 661</li>
+            <li><i class="fa-brands fa-whatsapp"></i> +353 83 011 5057</li>
+            <li><i class="fas fa-phone-alt"></i> +353 83 011 5057</li>
+            <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-  
-  
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    (function () {
+      var carousel = document.getElementById('homeHeroCarousel');
+      var video = document.getElementById('hero-video');
+      if (!carousel || !video) return;
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+      var bsCarousel = bootstrap.Carousel.getInstance(carousel) || new bootstrap.Carousel(carousel, { interval: 4000 });
+
+      // Pause carousel while video plays
+      video.addEventListener('play', function () {
+        bsCarousel.pause();
+      });
+
+      // When video ends, move to next slide and resume
+      video.addEventListener('ended', function () {
+        bsCarousel.next();
+        bsCarousel.cycle();
+      });
+
+      // If video slide is revisited, replay the video
+      carousel.addEventListener('slid.bs.carousel', function (e) {
+        if (e.to === 0) {
+          video.currentTime = 0;
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -3,57 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Services Workers - Agribridge</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Work Abroad - Agribridge</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="/assets/logos/Favicon Transparent.ico" type="image/x-icon">
-
 </head>
 <body>
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
     <div class="container">
       <a class="navbar-brand" href="index.html">
         <img class="logo" src="assets/logos/output-onlinepngtools.png" alt="Agribridge Logo" style="height: 60px; transition: transform 0.3s ease;" />
       </a>
-  
-      <!-- Toggler Button for Mobile View -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
-      <!-- Navbar Links -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="gallery.html">Gallery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="faq.html">FAQs</a>
-          </li>
-  
-          <!-- Services Dropdown -->
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Services
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="servicesWorker.html">For Worker</a></li>
-              <li><a class="dropdown-item" href="servicesContractor.html">For Contractors</a></li>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Services</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="servicesWorker.html">Work Abroad</a></li>
+              <li><a class="dropdown-item" href="servicesContractor.html">Find Staff</a></li>
             </ul>
           </li>
         </ul>
-  
-        <!-- Contact Us Button-->
         <div class="d-flex">
           <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
         </div>
@@ -61,84 +42,251 @@
     </div>
   </nav>
 
- <!-- Hero Section
-<section class="workers-banner">
-    <div class="workers-banner-content">
-      <h1>Services for Irish Workers</h1>
-      <p>Your Path to a New Career in New Zealand</p>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <h1>Work Abroad</h1>
+      <p>Your path to an incredible agricultural career overseas</p>
     </div>
-  </section> -->
-  
-  <!-- Services Section -->
-  <section class="services-irish">
-    <div class="container flex">
-      <div class="text">
-        <h2>Job Opportunities: Explore Agricultural Roles in New Zealand</h2>
-        <p>We offer a wide variety of job opportunities across New Zealand’s vibrant agricultural sector. Whether you’re experienced in livestock care, dairy industry, machinery operation, or general farm labor, we have positions available to suit your skills.</p>
-        <p><strong>Job Listings:</strong> Our website and social media pages feature up-to-date listings with detailed role descriptions, duties, and requirements.</p>
-        <p><strong>Pay & Benefits:</strong> We offer transparent pay structures, working hours, and additional perks such as accommodation allowances and transportation support.</p>
-  
-        <h2>Support During Transition</h2>
-        <p><strong>Bank Account:</strong> We assist in setting up a Bank of New Zealand (BNZ) account for smooth financial management during your stay.</p>
-        <p><strong>Travel Arrangements:</strong> We guide you through travel planning, from flight bookings to preparing all necessary documents.</p>
-        <p><strong>Settling In:</strong> We help you adjust to New Zealand life, offering cultural guidance and general support during your arrival.</p>
-  
-        <h2>Visa & Work Permit Assistance</h2>
-        <p><strong>Visa Guidance:</strong> We help you with WHV visa applications — from picking the right one to submission.</p>
-        <p><strong>Ongoing Support:</strong> If you encounter issues, our team provides continuous support to ensure a stress-free transition.</p>
-  
-        <p>By choosing Agribridge, you gain a trusted partner who supports you from job placement to settling into your new life in New Zealand.</p>
+  </section>
+
+  <!-- Work Abroad Intro -->
+  <section class="section-findwork py-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="section-label">New Zealand &amp; Australia</span>
+          <h2 class="section-title">Work Abroad</h2>
+          <p class="lead text-muted">Working on farms in New Zealand and Australia offers far more than just employment. It's an opportunity to earn well, build real hands-on experience, and spend time in some of the most diverse and rewarding farming environments in the world. Whether you're looking to develop your skills, see more of the world, or challenge yourself in a new setting, working abroad can be a valuable next step in your agricultural career.</p>
+        </div>
+        <div class="col-lg-6">
+          <img src="http://34.144.225.153/DJI_20241231075652_0161_D.JPG" alt="Farm work abroad" class="img-fluid rounded shadow" />
+        </div>
       </div>
     </div>
   </section>
 
- <!-- Footer Section -->
-<footer class="bg-dark text-white py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <a href="index.html">
-          <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" class="logo" style="height: 40px;" />
-        </a>
-        <p>We connect skilled workers to agricultural contractors in New Zealand.</p>
+  <!-- Why Work Abroad – Benefit Cards -->
+  <section class="section-arrange py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">Why Go</span>
+        <h2 class="section-title">What Working Abroad Offers You</h2>
       </div>
-      <div class="col-md-4 mb-3">
-        <h4>Navigation</h4>
-        <ul class="list-unstyled">
-          <li><a href="index.html" class="text-white">Home</a></li>
-          <li><a href="about.html" class="text-white">About Us</a></li>
-          <li><a href="gallery.html" class="text-white">Gallery</a></li>
-          <li><a href="contact.html" class="text-white">Contact Us</a></li>
-          <li><a href="servicesWorker.html" class="text-white">For Worker</a></li>
-          <li><a href="servicesContractor.html" class="text-white">For Contractors</a></li>
-          <li><a href="faq.html" class="text-white">FAQs</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h4>Get in Touch</h4>
-        <ul class="list-unstyled">
-          <li><i class="fas fa-phone-alt"></i> +61 413 421 661</li>
-          <li><i class="fa-brands fa-whatsapp"></i> +353 83 011 5057</li>
-          <li><i class="fas fa-phone-alt"></i> +353 83 011 5057</li>
-          <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
-        </ul>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-dollar-sign"></i></div>
+            <h4>Earn While You Work</h4>
+            <p>Competitive hourly rates and consistent hours during peak periods mean many candidates save a significant amount in a short time — particularly during busy silage and harvest seasons.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-tractor"></i></div>
+            <h4>Develop Real Farming Experience</h4>
+            <p>Gain exposure to large-scale, modern farming operations including machinery work, silage and harvesting crews, dairy, and general farm duties — experience that is highly regarded in the industry.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-mountain"></i></div>
+            <h4>Experience a Different Lifestyle</h4>
+            <p>Explore beaches, mountains, and rural landscapes in your time off. Many workers choose to travel before, during, or after their season to make the most of their time overseas.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-users"></i></div>
+            <h4>Strong Team Environments</h4>
+            <p>Work alongside people from different countries and backgrounds, forming close-knit crews. Fast-paced and focused, this environment often leads to strong working relationships and long-term friendships.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-chart-line"></i></div>
+            <h4>Personal &amp; Professional Growth</h4>
+            <p>Living and working overseas builds independence, adaptability, and confidence. Many candidates return home with a stronger work ethic and international experience that stands out on a CV.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="arrange-card">
+            <div class="arrange-icon"><i class="fas fa-globe"></i></div>
+            <h4>See the World</h4>
+            <p>New Zealand and Australia offer some of the most stunning natural environments on the planet. Working here means you're based in world-class destinations with endless things to see and do.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="text-center">
-      <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank" class="social-icon text-white mx-2"><i class="fa-brands fa-youtube"></i></a>
-      <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-tiktok"></i></a>     
-      <a href="https://www.instagram.com/agribridgerecruitment" target="_blank" class="social-icon text-white mx-2"><i class="fab fa-instagram"></i></a>
+  </section>
+
+  <!-- How Agribridge Supports You -->
+  <section class="section-support py-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5 order-lg-2">
+          <img src="http://34.144.225.153/IMG_2543.jpg" alt="Agribridge support" class="img-fluid rounded shadow" />
+        </div>
+        <div class="col-lg-7 order-lg-1">
+          <span class="section-label">We've Got You Covered</span>
+          <h2 class="section-title">How Agribridge Supports You</h2>
+          <p>At Agribridge, we manage the process from start to finish. This includes securing your role with trusted contractors, providing guidance throughout the visa process, assisting with travel planning, and supporting you with key setup requirements such as tax numbers and banking. Our support continues while you are overseas to ensure everything runs smoothly.</p>
+          <h3 class="mt-4 mb-3" style="font-size:1.2rem; font-weight:700; color:#023047;">Typical Roles Available</h3>
+          <ul class="styled-list">
+            <li>Silage and harvest crews</li>
+            <li>Seeding and spraying</li>
+            <li>Tractor and machinery operators</li>
+            <li>Dairy farm positions</li>
+            <li>General farm work</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
+  <!-- canditade photo album -->
+  
 
+  <!-- Start Your Journey CTA -->
+  <section class="py-5" style="background: linear-gradient(135deg, #023047 0%, #0a6640 100%); color: white;">
+    <div class="container text-center">
+      <h2 class="section-title" style="color: white;">Start Your Journey</h2>
+      <p class="lead mb-4" style="opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem;">If you're ready to take the next step in your farming career, working abroad could be the right opportunity for you.</p>
+      <a href="#apply" class="btn btn-success rounded-pill px-5 py-3 fw-semibold fs-5">Apply Now</a>
+    </div>
+  </section>
 
+  <!-- Success Stories -->
+  <section class="section-success-stories py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">Real Experiences</span>
+        <h2 class="section-title">Success Stories</h2>
+        <p class="section-subtitle">Hear from those who've made the journey</p>
+      </div>
+      <!-- <div class="row g-4 justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <div class="testimonial-card-home h-100">
+            <div class="ratio ratio-16x9 mb-3 rounded overflow-hidden">
+              <iframe src="https://www.youtube.com/embed/M86GmV4tvc4" title="Worker Experience" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <span class="section-label mb-2 d-inline-block">Worker</span>
+            <blockquote>"It has been a great opportunity to experience a new part of the world while working at something I enjoy at the same time. I learned a lot of new things and came home with skills I couldn't have got anywhere else."</blockquote>
+            <cite>— Adam Cunniffe, Candidate</cite>
+          </div>
+        </div> -->
+      <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+          <div class="testimonial-card-home">
+            <div class="ratio ratio-16x9 mb-3 rounded overflow-hidden">
+              <iframe src="https://www.youtube.com/embed/K8i6x1MhNZE?start=2" title="Worker Experience" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <blockquote>Ever wondered what it’s really like working a grass season in New Zealand? In this video, we jump into the cab with one of our candidates currently working on a contracting crew, giving you a firsthand look at the day-to-day life on the job.</blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+  <!-- Candidate Requirements -->
+  <section class="section-requirements py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">Work Abroad</span>
+        <h2 class="section-title">Candidate Requirements</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="requirement-card">
+            <div class="req-icon"><i class="fas fa-user-check"></i></div>
+            <h4>Age</h4>
+            <p>We accept recruits between the ages of 18–30, as you must be in this age bracket to qualify for a Working Holiday Visa in New Zealand.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="requirement-card">
+            <div class="req-icon"><i class="fas fa-globe-europe"></i></div>
+            <h4>Residency</h4>
+            <p>Due to visa restrictions, we only accept recruits who are permanent residents of the UK, Ireland, or countries with a relevant WHV scheme.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="requirement-card">
+            <div class="req-icon"><i class="fas fa-tools"></i></div>
+            <h4>Skills &amp; Attributes</h4>
+            <p>You'll need excellent communication skills, a strong commitment to workplaces and tasks, and a willingness to experience agriculture abroad.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="requirement-card">
+            <div class="req-icon"><i class="fas fa-dollar-sign"></i></div>
+            <h4>Travel Costs</h4>
+            <p>We don't charge any fees to recruits, however you must be able to cover your travel expenses to New Zealand and the cost of your visa application and placement deposit which is fully refunded.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="requirement-card">
+            <div class="req-icon"><i class="fas fa-file-alt"></i></div>
+            <h4>CV</h4>
+            <p>We will require a CV with references and details of your experience with relevant machinery. If you don't have a CV we will assist you.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="requirement-card">
+            <div class="req-icon"><i class="fas fa-handshake"></i></div>
+            <h4>Commitment</h4>
+            <p>You must be able to commit to a minimum of 4-6 months with an employer. We can facilitate placement students if you have a workable timeframe.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <a href="index.html">
+            <img src="assets/logos/Transparent Logo.png" alt="Agribridge Logo" style="height: 45px;" class="mb-3" />
+          </a>
+          <p>We connect skilled workers to agricultural contractors around the world.</p>
+          <div class="footer-socials">
+            <a href="https://www.youtube.com/@AGRIBRIDGE-recruitment" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.tiktok.com/@agribridge.recrui" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/agribridgerecruitment" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="servicesWorker.html">Work Abroad</a></li>
+            <li><a href="servicesContractor.html">Find Staff</a></li>
+            <li><a href="faq.html">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Get in Touch</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-phone-alt"></i> +61 413 421 661</li>
+            <li><i class="fa-brands fa-whatsapp"></i> +353 83 011 5057</li>
+            <li><i class="fas fa-phone-alt"></i> +353 83 011 5057</li>
+            <li><i class="fas fa-envelope"></i> recruitment@agribridge.com.mx</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
