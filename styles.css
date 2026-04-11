@@ -2287,6 +2287,38 @@ section .img-fluid:hover {
   margin-bottom: 8px;
 }
 
+/* ===== Staffing Highlight Blocks ===== */
+.staffing-highlight-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, #f0faf3 0%, #e8f8ed 100%);
+  border: 1px solid rgba(10,102,64,0.12);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+
+.staffing-highlight-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #0a6640, #28a745);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.staffing-highlight-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #023047;
+  margin: 0 0 6px 0;
+}
+
 /* ===== Global Button Polish ===== */
 .btn-success {
   background: linear-gradient(135deg, #28a745, #20c997) !important;
