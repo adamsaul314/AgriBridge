@@ -2483,3 +2483,304 @@ section.py-5 {
   padding-top: 5rem !important;
   padding-bottom: 5rem !important;
 }
+
+/* ==============================================
+   MOBILE OPTIMIZATION (max-width: 767px)
+   ============================================== */
+@media (max-width: 767px) {
+
+  /* --- Section Spacing --- */
+  section.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* --- Hero Section --- */
+  .home-hero,
+  .home-hero .carousel-inner,
+  .home-hero .carousel-item {
+    height: 85vh;
+    min-height: 500px;
+  }
+
+  .home-hero video.hero-bg {
+    height: 85vh;
+    min-height: 500px;
+    object-fit: cover;
+  }
+
+  .hero-title {
+    font-size: 1.8rem !important;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .hero-lead {
+    font-size: 0.9rem !important;
+    padding: 0 10px;
+  }
+
+  .hero-countries {
+    font-size: 0.85rem;
+  }
+
+  .hero-cta-row {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .hero-cta-row .btn {
+    width: 80%;
+  }
+
+  .btn-hero-contact {
+    font-size: 0.85rem;
+  }
+
+  /* --- Page Hero (inner pages) --- */
+  .page-hero h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .page-hero p {
+    font-size: 0.9rem;
+    padding: 0 10px;
+  }
+
+  /* --- Section Titles --- */
+  .section-title {
+    font-size: 1.5rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* --- Arrange Cards (What We Arrange) --- */
+  .arrange-card {
+    padding: 24px 16px;
+    border-radius: 14px;
+  }
+
+  .arrange-card h4 {
+    font-size: 0.95rem;
+  }
+
+  .arrange-card p {
+    font-size: 0.8rem;
+  }
+
+  .arrange-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  /* --- Testimonial Card --- */
+  .testimonial-card-home {
+    padding: 20px;
+  }
+
+  .testimonial-card-home blockquote {
+    font-size: 0.9rem;
+  }
+
+  /* --- Talent Pool (About page) --- */
+  .section-talent-pool {
+    padding: 48px 0;
+  }
+
+  .talent-pool-grid {
+    gap: 10px;
+  }
+
+  .talent-location-card {
+    padding: 16px 20px;
+    min-width: 100px;
+    border-radius: 14px;
+  }
+
+  .talent-flag-badge {
+    width: 44px;
+    height: 44px;
+    font-size: 0.85rem;
+  }
+
+  .talent-country {
+    font-size: 0.8rem;
+  }
+
+  /* --- FAQ Facts Strip --- */
+  .faq-facts-strip {
+    padding: 24px 0;
+  }
+
+  .faq-fact i {
+    font-size: 1.4rem;
+  }
+
+  .faq-fact strong {
+    font-size: 0.85rem;
+  }
+
+  .faq-fact span {
+    font-size: 0.72rem;
+  }
+
+  /* --- FAQ Groups --- */
+  .faq-group-header {
+    font-size: 1rem;
+    margin: 24px 0 12px;
+  }
+
+  .faq-group-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .faq-accordion .accordion-button {
+    padding: 16px 18px;
+    font-size: 0.9rem;
+  }
+
+  .faq-accordion .accordion-body {
+    padding: 8px 18px 20px;
+    font-size: 0.9rem;
+  }
+
+  .faq-q-icon {
+    display: none;
+  }
+
+  .faq-cta-block {
+    padding: 32px 20px;
+  }
+
+  .faq-cta-icon {
+    font-size: 2rem;
+  }
+
+  .faq-cta-block h3 {
+    font-size: 1.2rem;
+  }
+
+  /* --- Staffing Highlight Blocks --- */
+  .staffing-highlight-block {
+    padding: 16px 18px;
+    gap: 12px;
+  }
+
+  .staffing-highlight-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .staffing-highlight-title {
+    font-size: 0.9rem;
+  }
+
+  .staffing-highlight-block p {
+    font-size: 0.85rem;
+  }
+
+  /* --- Destination Cards --- */
+  .destination-card {
+    padding: 24px 18px;
+  }
+
+  .destination-flag {
+    font-size: 1.8rem;
+  }
+
+  /* --- Requirement Cards --- */
+  .requirement-card {
+    padding: 24px 18px;
+  }
+
+  /* --- Steps Cards --- */
+  .step-card {
+    padding: 24px 18px;
+  }
+
+  /* --- Testimonial Carousel --- */
+  .testimonial-slide {
+    padding: 24px 18px;
+  }
+
+  .testimonial-slide p {
+    font-size: 0.9rem;
+  }
+
+  /* --- Images with fixed heights --- */
+  img[style*="height: 400px"],
+  img[style*="height: 460px"],
+  img[style*="height: 320px"],
+  img[style*="height: 280px"] {
+    height: 220px !important;
+  }
+
+  /* --- Footer --- */
+  .site-footer {
+    text-align: center;
+  }
+
+  .site-footer .row > div {
+    margin-bottom: 24px;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-links,
+  .footer-contact {
+    padding-left: 0;
+  }
+
+  /* --- Navbar Mobile --- */
+  .navbar-brand img {
+    height: 45px !important;
+  }
+
+  .navbar-collapse {
+    padding: 16px 0;
+  }
+
+  .navbar .btn-success {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* --- Gallery --- */
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  /* --- Contact Cards --- */
+  .arrange-card .btn {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+
+  /* --- General text --- */
+  .lead {
+    font-size: 1rem !important;
+  }
+
+  p {
+    font-size: 0.92rem;
+  }
+
+  /* --- YouTube Embeds --- */
+  .ratio.ratio-16x9 {
+    border-radius: 10px;
+  }
+}
