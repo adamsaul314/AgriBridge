@@ -1,5 +1,38 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+  const countryGateForm = document.getElementById('country-gate-form');
+  if (countryGateForm) {
+    countryGateForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const selectedCountry = document.getElementById('country-select').value;
+      const targetUrl = sessionStorage.getItem('agribridgeTargetUrl');
+
+      if (!targetUrl) {
+        window.location.href = 'contact.html';
+        return;
+      }
+
+      const allowedCountries = ['United Kingdom', 'Ireland', 'Europe'];
+
+      if (allowedCountries.includes(selectedCountry)) {
+        window.location.href = targetUrl;
+      } else {
+        window.location.href = 'application-closed.html';
+      }
+    });
+  }
+
+  const applicationLinks = document.querySelectorAll('[data-application-form]');
+  applicationLinks.forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      const targetUrl = link.dataset.applicationForm;
+      sessionStorage.setItem('agribridgeTargetUrl', targetUrl);
+      window.location.href = 'country-check.html';
+    });
+  });
+
   // ===== Lazy Loading with IntersectionObserver =====
   const lazyImages = document.querySelectorAll('.lazy-img');
   const lazyVideos = document.querySelectorAll('.lazy-video');
