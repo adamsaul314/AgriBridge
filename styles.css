@@ -382,6 +382,116 @@ body {
     background-color: #fff;
   }
 
+  .country-gate-page,
+  .country-closed-page {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #eef6f2 0%, #f9fafb 100%);
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .country-gate-card {
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(2, 48, 71, 0.08);
+    padding: 40px 30px;
+    text-align: center;
+  }
+
+  .country-gate-eyebrow {
+    display: inline-block;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0a6640;
+    background: rgba(10, 102, 64, 0.08);
+    border-radius: 999px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+  }
+
+  .country-gate-card h1 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: #023047;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .country-gate-text {
+    font-size: 1.08rem;
+    color: #475569;
+    margin-bottom: 28px;
+  }
+
+  .country-gate-form {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .country-gate-form .form-group {
+    margin-bottom: 24px;
+  }
+
+  .country-gate-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #023047;
+  }
+
+  .country-gate-form select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d8e0e6;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fff;
+    color: #023047;
+  }
+
+  .country-gate-form button,
+  .country-closed-card .btn {
+    width: 100%;
+    max-width: 220px;
+    display: inline-block;
+  }
+
+  .country-closed-card {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .country-status-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(220, 53, 69, 0.1);
+    color: #c92a2a;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .country-closed-card h1 {
+    margin-bottom: 16px;
+  }
+
+  .country-closed-card p {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    max-width: 560px;
+    margin: 0 auto 24px;
+    color: #475569;
+  }
+
   @media (max-width: 768px) {
     .nav-wrapper {
       display: flex;
