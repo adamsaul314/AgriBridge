@@ -2,25 +2,81 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const countryGateForm = document.getElementById('country-gate-form');
   if (countryGateForm) {
+    const residenceSelect = document.getElementById('residence-select');
+    const passportSelect = document.getElementById('passport-country');
+
+    residenceSelect.addEventListener('change', function () {
+      if (residenceSelect.value === 'Other') {
+        window.location.href = 'application-closed.html?reason=location';
+      }
+    });
+
+    passportSelect.addEventListener('change', function () {
+      if (passportSelect.value === 'Other') {
+        window.location.href = 'application-closed.html?reason=passport';
+      }
+    });
+
     countryGateForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const selectedCountry = document.getElementById('country-select').value;
+      const residence = residenceSelect.value;
+      const passportCountry = passportSelect.value;
+      const visaEligible = countryGateForm.elements.visaEligible.value;
       const targetUrl = sessionStorage.getItem('agribridgeTargetUrl');
+
+      if (residence === 'Other') {
+        window.location.href = 'application-closed.html?reason=location';
+        return;
+      }
+
+      if (!['Ireland', 'United Kingdom', 'Germany', 'Norway', 'Netherlands', 'Finland'].includes(passportCountry)) {
+        window.location.href = 'application-closed.html?reason=passport';
+        return;
+      }
 
       if (!targetUrl) {
         window.location.href = 'contact.html';
         return;
       }
 
-      const allowedCountries = ['United Kingdom', 'Ireland', 'Europe'];
-
-      if (allowedCountries.includes(selectedCountry)) {
+      if (visaEligible === 'yes') {
         window.location.href = targetUrl;
       } else {
-        window.location.href = 'application-closed.html';
+        const reason = visaEligible === 'no' ? 'ineligible' : 'unsure';
+        window.location.href = 'application-closed.html?reason=' + reason;
       }
     });
+  }
+
+  const closedPage = document.querySelector('.country-closed-card');
+  if (closedPage) {
+    const reason = new URLSearchParams(window.location.search).get('reason');
+    const heading = document.getElementById('eligibility-heading');
+    const message = document.getElementById('eligibility-message');
+    const visaInformation = document.getElementById('visa-information');
+    const recheckLink = document.getElementById('eligibility-recheck');
+
+    if (reason === 'location') {
+      heading.textContent = 'Thank you for your interest in Agribridge';
+      message.textContent = "We currently consider candidates based in Ireland, Scotland, elsewhere in the UK, Germany, Norway, the Netherlands, and Finland. We can't progress applications from other locations at this time.";
+      visaInformation.classList.add('d-none');
+      recheckLink.hidden = true;
+    } else if (reason === 'unsure') {
+      heading.textContent = 'Not sure about your visa eligibility?';
+      message.textContent = "That doesn't mean you're ineligible. Check the official visa requirements for your chosen destination. If you meet them, return to the application check and select Yes.";
+      recheckLink.hidden = false;
+    } else if (reason === 'passport') {
+      heading.textContent = 'We can’t progress this application';
+      message.textContent = 'At present, we can only consider applicants holding passports issued by Ireland, the United Kingdom, Germany, Norway, the Netherlands, or Finland. We’re unable to progress applications with other passports at this time.';
+      visaInformation.classList.add('d-none');
+      recheckLink.hidden = true;
+    } else {
+      heading.textContent = 'You may not meet the visa requirements';
+      message.textContent = 'Based on your answer, you may not be eligible for a Working Holiday visa for your chosen destination, so we cannot progress this application. Check the official visa requirements in case your circumstances change.';
+      visaInformation.classList.remove('d-none');
+      recheckLink.hidden = true;
+    }
   }
 
   const applicationLinks = document.querySelectorAll('[data-application-form]');
