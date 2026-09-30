@@ -36,7 +36,7 @@
           </li>
         </ul>
         <div class="d-flex">
-          <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Contact Us</a>
+          <a class="btn btn-success rounded-pill px-4 py-2" href="contact.html">Apply Now</a>
         </div>
       </div>
     </div>
@@ -46,20 +46,60 @@
     <div class="container">
       <div class="country-gate-card">
         <p class="country-gate-eyebrow">Application check</p>
-        <h1>Where are you applying from?</h1>
-        <p class="country-gate-text">Please select the region you are currently based in before continuing.</p>
+        <h1>Check your eligibility</h1>
+        <p class="country-gate-text">We currently consider candidates based in Ireland, Scotland, elsewhere in the UK, Germany, Norway, the Netherlands, and Finland. Choose where you currently live to continue.</p>
 
         <form id="country-gate-form" class="country-gate-form">
           <div class="form-group">
-            <label for="country-select">Your location</label>
-            <select id="country-select" name="country" required>
-              <option value="">Select an option</option>
-              <option value="United Kingdom">United Kingdom</option>
+            <label for="residence-select">Where do you currently live?</label>
+            <select id="residence-select" name="residence" required>
+              <option value="">Select your location</option>
               <option value="Ireland">Ireland</option>
-              <option value="Europe">Europe</option>
-              <option value="Other">Outside the UK, Ireland or Europe</option>
+              <option value="Scotland">Scotland</option>
+              <option value="United Kingdom">United Kingdom (excluding Scotland)</option>
+              <option value="Germany">Germany</option>
+              <option value="Norway">Norway</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="Finland">Finland</option>
+              <option value="Other">Other</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="destination-select">Where would you like to work?</label>
+            <select id="destination-select" name="destination" required>
+              <option value="">Select a destination</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Australia">Australia</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="passport-country">Which country issued your passport?</label>
+            <select id="passport-country" name="passportCountry" autocomplete="country-name" required>
+              <option value="">Select your passport country</option>
+              <option value="Ireland">Ireland</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Germany">Germany</option>
+              <option value="Norway">Norway</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="Finland">Finland</option>
+              <option value="Other">Other / not listed</option>
+            </select>
+          </div>
+          <fieldset class="form-group">
+            <legend>Do you meet the Working Holiday visa requirements for this destination? (For Australia, this includes subclass 417 or 462.)</legend>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="visa-eligible-yes" name="visaEligible" value="yes" required>
+              <label class="form-check-label" for="visa-eligible-yes">Yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="visa-eligible-no" name="visaEligible" value="no">
+              <label class="form-check-label" for="visa-eligible-no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="visa-eligible-unsure" name="visaEligible" value="unsure">
+              <label class="form-check-label" for="visa-eligible-unsure">Not sure</label>
+            </div>
+          </fieldset>
           <button type="submit" class="btn btn-success rounded-pill px-4 py-2">Continue</button>
         </form>
       </div>

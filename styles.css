@@ -438,14 +438,15 @@ body {
     margin-bottom: 24px;
   }
 
-  .country-gate-form label {
+  .country-gate-form > .form-group > label {
     display: block;
     margin-bottom: 10px;
     font-weight: 600;
     color: #023047;
   }
 
-  .country-gate-form select {
+  .country-gate-form select,
+  .country-gate-form input[type="text"] {
     width: 100%;
     padding: 14px 16px;
     border: 1px solid #d8e0e6;
@@ -453,6 +454,24 @@ body {
     font-size: 1rem;
     background: #fff;
     color: #023047;
+  }
+
+  .country-gate-form fieldset {
+    border: 0;
+    padding: 0;
+  }
+
+  .country-gate-form legend {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #023047;
+    margin-bottom: 10px;
+  }
+
+  .country-gate-form .form-check-label {
+    display: inline;
+    font-weight: 400;
+    color: #475569;
   }
 
   .country-gate-form button,
