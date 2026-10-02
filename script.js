@@ -1,36 +1,100 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  const countryGateForm = document.getElementById('country-gate-form');
+  // ===== Funnel state =====
+  // The intended application form is kept in sessionStorage so it can be handed
+  // off after the eligibility gate. Storage can be unavailable (private mode,
+  // disabled storage, quota), so every access is guarded (FUN-03).
+  var TARGET_URL_KEY = 'agribridgeTargetUrl';
+
+  function safeStorageGet(key) {
+    try {
+      return window.sessionStorage.getItem(key);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function safeStorageSet(key, value) {
+    try {
+      window.sessionStorage.setItem(key, value);
+    } catch (e) {
+      // Storage unavailable: the gate still runs, the form is just not persisted.
+    }
+  }
+
+  function safeStorageRemove(key) {
+    try {
+      window.sessionStorage.removeItem(key);
+    } catch (e) {
+      // Nothing to clear.
+    }
+  }
+
+  // Attach the chosen destination to the form hand-off so it is not lost (FUN-01).
+  function appendDestination(url, destination) {
+    if (!destination) return url;
+    try {
+      var parsed = new URL(url);
+      parsed.searchParams.set('destination', destination);
+      return parsed.toString();
+    } catch (e) {
+      var separator = url.indexOf('?') === -1 ? '?' : '&';
+      return url + separator + 'destination=' + encodeURIComponent(destination);
+    }
+  }
+
+  // ===== Application cards (contact.html) =====
+  // The anchors point at country-check.html so left-click, new-tab, modified-click
+  // and JS-disabled users all pass through the eligibility gate. JS only records
+  // which form the user intended to reach (FUN-04).
+  var applicationLinks = document.querySelectorAll('[data-application-form]');
+
+  if (applicationLinks.length) {
+    // A fresh visit to the application hub always starts from a clean slate (FUN-02).
+    safeStorageRemove(TARGET_URL_KEY);
+  }
+
+  applicationLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      // Deliberately no preventDefault(): the anchor's own href routes the user
+      // through the gate even if this handler or storage fails (FUN-03).
+      safeStorageSet(TARGET_URL_KEY, link.dataset.applicationForm);
+    });
+  });
+
+  // ===== Eligibility gate (country-check.html) =====
+  var countryGateForm = document.getElementById('country-gate-form');
   if (countryGateForm) {
-    const residenceSelect = document.getElementById('residence-select');
-    const passportSelect = document.getElementById('passport-country');
+    var residenceSelect = document.getElementById('residence-select');
+    var passportSelect = document.getElementById('passport-country');
+    var destinationSelect = document.getElementById('destination-select');
 
-    residenceSelect.addEventListener('change', function () {
-      if (residenceSelect.value === 'Other') {
-        window.location.href = 'application-closed.html?reason=location';
-      }
-    });
+    // The <option> lists in country-check.html are the single source of truth for
+    // eligible countries. Validation is derived from them, so the form UI and the
+    // eligibility logic can never drift apart (FUN-05).
+    function allowedValues(select) {
+      return Array.prototype.map
+        .call(select.options, function (option) { return option.value; })
+        .filter(function (value) { return value && value !== 'Other'; });
+    }
 
-    passportSelect.addEventListener('change', function () {
-      if (passportSelect.value === 'Other') {
-        window.location.href = 'application-closed.html?reason=passport';
-      }
-    });
-
+    // One code path decides eligibility (FUN-06): the "Other" change listeners
+    // were removed and everything is resolved here on submit.
     countryGateForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const residence = residenceSelect.value;
-      const passportCountry = passportSelect.value;
-      const visaEligible = countryGateForm.elements.visaEligible.value;
-      const targetUrl = sessionStorage.getItem('agribridgeTargetUrl');
+      var residence = residenceSelect.value;
+      var passportCountry = passportSelect.value;
+      var selectedDestination = destinationSelect.value;
+      var visaEligible = countryGateForm.elements.visaEligible.value;
+      var targetUrl = safeStorageGet(TARGET_URL_KEY);
 
-      if (residence === 'Other') {
+      if (residence === 'Other' || allowedValues(residenceSelect).indexOf(residence) === -1) {
         window.location.href = 'application-closed.html?reason=location';
         return;
       }
 
-      if (!['Ireland', 'United Kingdom', 'Germany', 'Norway', 'Netherlands', 'Finland'].includes(passportCountry)) {
+      if (allowedValues(passportSelect).indexOf(passportCountry) === -1) {
         window.location.href = 'application-closed.html?reason=passport';
         return;
       }
@@ -41,21 +105,45 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (visaEligible === 'yes') {
-        window.location.href = targetUrl;
+        // The gate is complete; clear the stored target so it can't leak into a
+        // later, unrelated visit to the gate (FUN-02).
+        safeStorageRemove(TARGET_URL_KEY);
+        window.location.href = appendDestination(targetUrl, selectedDestination);
       } else {
-        const reason = visaEligible === 'no' ? 'ineligible' : 'unsure';
-        window.location.href = 'application-closed.html?reason=' + reason;
+        var outcome = visaEligible === 'no' ? 'ineligible' : 'unsure';
+        window.location.href =
+          'application-closed.html?reason=' + outcome +
+          '&destination=' + encodeURIComponent(selectedDestination);
       }
     });
   }
 
-  const closedPage = document.querySelector('.country-closed-card');
+  // ===== Gate outcome messaging (application-closed.html) =====
+  var closedPage = document.querySelector('.country-closed-card');
   if (closedPage) {
-    const reason = new URLSearchParams(window.location.search).get('reason');
-    const heading = document.getElementById('eligibility-heading');
-    const message = document.getElementById('eligibility-message');
-    const visaInformation = document.getElementById('visa-information');
-    const recheckLink = document.getElementById('eligibility-recheck');
+    var params = new URLSearchParams(window.location.search);
+    var reason = params.get('reason');
+    var destination = params.get('destination');
+    var heading = document.getElementById('eligibility-heading');
+    var message = document.getElementById('eligibility-message');
+    var visaInformation = document.getElementById('visa-information');
+    var recheckLink = document.getElementById('eligibility-recheck');
+    var nzVisaLink = document.getElementById('nz-visa-link');
+    var au417VisaLink = document.getElementById('au-417-visa-link');
+    var au462VisaLink = document.getElementById('au-462-visa-link');
+
+    function toggleVisaLink(link, visible) {
+      if (link) link.classList.toggle('d-none', !visible);
+    }
+
+    // Only show the visa route(s) relevant to the chosen destination (FUN-01).
+    function applyDestinationLinks() {
+      var isNewZealand = destination === 'New Zealand';
+      var isAustralia = destination === 'Australia';
+      toggleVisaLink(nzVisaLink, !isAustralia);
+      toggleVisaLink(au417VisaLink, !isNewZealand);
+      toggleVisaLink(au462VisaLink, !isNewZealand);
+    }
 
     if (reason === 'location') {
       heading.textContent = 'Thank you for your interest in Agribridge';
@@ -64,7 +152,14 @@ document.addEventListener("DOMContentLoaded", function () {
       recheckLink.hidden = true;
     } else if (reason === 'unsure') {
       heading.textContent = 'Not sure about your visa eligibility?';
-      message.textContent = "That doesn't mean you're ineligible. Check the official visa requirements for your chosen destination. If you meet them, return to the application check and select Yes.";
+      if (destination === 'Australia') {
+        message.textContent = "That doesn't mean you're ineligible. Australia has two Working Holiday visas — subclass 417 and subclass 462 — and which one applies depends on your nationality. Check the official requirements for the one that matches you. If you meet them, return to the application check and select Yes.";
+      } else if (destination === 'New Zealand') {
+        message.textContent = "That doesn't mean you're ineligible. Check the official New Zealand working holiday visa requirements. If you meet them, return to the application check and select Yes.";
+      } else {
+        message.textContent = "That doesn't mean you're ineligible. Check the official visa requirements for your chosen destination. If you meet them, return to the application check and select Yes.";
+      }
+      applyDestinationLinks();
       recheckLink.hidden = false;
     } else if (reason === 'passport') {
       heading.textContent = 'We can’t progress this application';
@@ -73,21 +168,18 @@ document.addEventListener("DOMContentLoaded", function () {
       recheckLink.hidden = true;
     } else {
       heading.textContent = 'You may not meet the visa requirements';
-      message.textContent = 'Based on your answer, you may not be eligible for a Working Holiday visa for your chosen destination, so we cannot progress this application. Check the official visa requirements in case your circumstances change.';
+      if (destination === 'Australia') {
+        message.textContent = "Based on your answer, you may not be eligible for an Australian Working Holiday visa (subclass 417 or 462), so we cannot progress this application. Check the official requirements in case your circumstances change.";
+      } else if (destination === 'New Zealand') {
+        message.textContent = "Based on your answer, you may not be eligible for the New Zealand working holiday visa, so we cannot progress this application. Check the official requirements in case your circumstances change.";
+      } else {
+        message.textContent = 'Based on your answer, you may not be eligible for a Working Holiday visa for your chosen destination, so we cannot progress this application. Check the official requirements in case your circumstances change.';
+      }
+      applyDestinationLinks();
       visaInformation.classList.remove('d-none');
       recheckLink.hidden = true;
     }
   }
-
-  const applicationLinks = document.querySelectorAll('[data-application-form]');
-  applicationLinks.forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-      const targetUrl = link.dataset.applicationForm;
-      sessionStorage.setItem('agribridgeTargetUrl', targetUrl);
-      window.location.href = 'country-check.html';
-    });
-  });
 
   // ===== Lazy Loading with IntersectionObserver =====
   const lazyImages = document.querySelectorAll('.lazy-img');
