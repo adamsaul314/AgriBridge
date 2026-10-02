@@ -38,3 +38,7 @@ Desktop.ini
 *.avi
 *.mkv
 !assets/videos/hero.mp4
+
+# --- Python ---
+__pycache__/
+*.py[cod]

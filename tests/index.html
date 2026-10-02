@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>AgriBridge test suite</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #0b1220; color: #e6edf3; }
+    h1 { font-size: 1.4rem; margin: 0 0 4px; }
+    p.hint { color: #8b95a5; margin: 0 0 20px; }
+    #summary { font-size: 1.1rem; font-weight: 700; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; }
+    #summary.pass { background: #10331f; color: #5de89e; }
+    #summary.fail { background: #3a1417; color: #ff8a8a; }
+    #summary.running { background: #1b2740; color: #9ecbff; }
+    h2 { font-size: 1rem; margin: 24px 0 8px; color: #9ecbff; }
+    ol { list-style: none; padding: 0; margin: 0; }
+    li { padding: 6px 10px; border-radius: 6px; margin-bottom: 4px; font-size: 0.9rem; }
+    li.pass::before { content: "\2714  "; color: #5de89e; }
+    li.fail { background: #2a1114; }
+    li.fail::before { content: "\2718  "; color: #ff8a8a; }
+    li pre { margin: 6px 0 0; white-space: pre-wrap; color: #ffb4b4; font-size: 0.82rem; }
+    #fixtures { position: absolute; left: -9999px; width: 10px; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <h1>AgriBridge test suite</h1>
+  <p class="hint">
+    Serve the site over HTTP (for example <code>python3 -m http.server</code>) and open
+    <code>/tests/index.html</code>. ES modules cannot be imported from <code>file://</code>.
+    Results are also written to <code>window.__agribridgeTests</code>.
+  </p>
+  <div id="summary" class="running">Running…</div>
+  <div id="output"></div>
+
+  <!-- DOM fixtures used by the integration tests. Offset off-screen. -->
+  <div id="fixtures" aria-hidden="true">
+    <span class="js-email" data-u="recruitment" data-d="xm.moc.egdirbirga"></span>
+
+    <a id="fixture-card" href="#stored" data-application-form="https://docs.google.com/forms/d/e/EXAMPLE/viewform"></a>
+
+    <form id="country-gate-form">
+      <select id="residence-select">
+        <option value="">Select</option>
+        <option value="Ireland">Ireland</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Other">Other</option>
+      </select>
+      <select id="destination-select">
+        <option value="">Select</option>
+        <option value="New Zealand">New Zealand</option>
+        <option value="Australia">Australia</option>
+      </select>
+      <select id="passport-country">
+        <option value="">Select</option>
+        <option value="Ireland">Ireland</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Other">Other / not listed</option>
+      </select>
+      <input type="radio" name="visaEligible" value="yes" checked />
+      <input type="radio" name="visaEligible" value="no" />
+      <input type="radio" name="visaEligible" value="unsure" />
+    </form>
+
+    <div class="country-closed-card">
+      <h1 id="eligibility-heading"></h1>
+      <p id="eligibility-message"></p>
+      <div id="visa-information">
+        <a id="nz-visa-link" class="btn">NZ</a>
+        <a id="au-417-visa-link" class="btn">417</a>
+        <a id="au-462-visa-link" class="btn">462</a>
+      </div>
+      <a id="eligibility-recheck" hidden>Check again</a>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="photo">Photos</button>
+      <button class="filter-btn" data-filter="video">Videos</button>
+    </div>
+    <div id="gallery-items"></div>
+    <ul id="pagination"></ul>
+
+    <div id="lightbox" class="lightbox-v2" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+      <div class="lightbox-backdrop"></div>
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" aria-label="Previous">&lsaquo;</button>
+      <button class="lightbox-next" aria-label="Next">&rsaquo;</button>
+      <div class="lightbox-counter"><span id="lightbox-current">1</span> / <span id="lightbox-total">1</span></div>
+      <div id="lightbox-content" class="lightbox-media"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      clamp,
+      pageCount,
+      pageSlice,
+      nextLightboxIndex,
+      eligibleValues,
+      isEligible,
+      withDestination,
+      messageFor,
+      resolveGateOutcome,
+      gateDecision,
+      isVideoSource,
+      UNSURE_MESSAGES,
+      INELIGIBLE_MESSAGES,
+      initFooterEmail,
+      initApplicationCards,
+      initGateOutcome,
+      initGallery,
+      TARGET_FORM_KEY
+    } from "../assets/js/app.js";
+
+    // ----- tiny test framework -----
+    const results = [];
+    let currentGroup = "";
+
+    function assert(condition, message) {
+      if (!condition) throw new Error(message || "Expected a truthy value");
+    }
+
+    function assertEqual(actual, expected, message) {
+      if (actual !== expected) {
+        throw new Error((message ? message + ": " : "") +
+          "expected " + JSON.stringify(expected) + " but got " + JSON.stringify(actual));
+      }
+    }
+
+    function group(name) {
+      currentGroup = name;
+      const heading = document.createElement("h2");
+      heading.textContent = name;
+      document.getElementById("output").appendChild(heading);
+      const list = document.createElement("ol");
+      list.dataset.group = name;
+      document.getElementById("output").appendChild(list);
+    }
+
+    function test(name, fn) {
+      try {
+        fn();
+        results.push({ group: currentGroup, name, ok: true });
+      } catch (error) {
+        results.push({ group: currentGroup, name, ok: false, error: String(error && error.message || error) });
+      }
+    }
+
+    function fakeSelect(values) {
+      return { options: values.map((value) => ({ value })) };
+    }
+
+    // ----- pure funnel logic -----
+    group("Funnel: country lists");
+    test("eligibleValues drops the placeholder and Other", () => {
+      const values = eligibleValues(fakeSelect(["", "Ireland", "Other", "Finland"]));
+      assertEqual(values.join(","), "Ireland,Finland");
+    });
+    test("isEligible matches listed values only", () => {
+      const select = fakeSelect(["Ireland", "Other"]);
+      assert(isEligible(select, "Ireland"), "Ireland should be eligible");
+      assert(!isEligible(select, "Other"), "Other should not be eligible");
+      assert(!isEligible(select, ""), "empty should not be eligible");
+    });
+
+    group("Funnel: destination URL");
+    test("withDestination adds the parameter", () => {
+      assert(withDestination("https://example.com/form", "Australia").includes("destination=Australia"));
+    });
+    test("withDestination preserves an existing query", () => {
+      const url = withDestination("https://example.com/form?usp=header", "New Zealand");
+      assert(url.includes("usp=header"), "existing query lost");
+      assert(url.includes("destination=New+Zealand"), "destination missing");
+    });
+    test("withDestination ignores an empty destination", () => {
+      assertEqual(withDestination("https://example.com/form", ""), "https://example.com/form");
+    });
+    test("withDestination falls back for an invalid URL", () => {
+      assertEqual(withDestination("not a url", "Australia"), "not a url?destination=Australia");
+    });
+
+    group("Funnel: message selection");
+    test("messageFor picks a destination-specific message", () => {
+      assertEqual(messageFor(UNSURE_MESSAGES, "Australia"), UNSURE_MESSAGES.Australia);
+      assertEqual(messageFor(INELIGIBLE_MESSAGES, "New Zealand"), INELIGIBLE_MESSAGES["New Zealand"]);
+    });
+    test("messageFor falls back to default", () => {
+      assertEqual(messageFor(UNSURE_MESSAGES, "Mars"), UNSURE_MESSAGES.default);
+    });
+
+    group("Funnel: gate outcomes");
+    test("location outcome hides visa info and recheck", () => {
+      const outcome = resolveGateOutcome("location");
+      assertEqual(outcome.showVisaInformation, false);
+      assertEqual(outcome.showRecheck, false);
+    });
+    test("passport outcome hides visa info and recheck", () => {
+      const outcome = resolveGateOutcome("passport");
+      assertEqual(outcome.showVisaInformation, false);
+      assertEqual(outcome.showRecheck, false);
+    });
+    test("unsure outcome shows visa info and recheck", () => {
+      const outcome = resolveGateOutcome("unsure");
+      assertEqual(outcome.showVisaInformation, true);
+      assertEqual(outcome.showRecheck, true);
+    });
+    test("unknown reason falls back to the ineligible outcome", () => {
+      const outcome = resolveGateOutcome("nonsense");
+      assertEqual(outcome.heading, "You may not meet the visa requirements");
+      assertEqual(outcome.showVisaInformation, true);
+    });
+
+    group("Funnel: gate decisions");
+    const baseDecision = {
+      residence: "Ireland",
+      passportCountry: "Ireland",
+      destination: "New Zealand",
+      visaAnswer: "yes",
+      targetFormUrl: "https://example.com/form",
+      residenceValues: ["Ireland", "United Kingdom"],
+      passportValues: ["Ireland", "United Kingdom"]
+    };
+    test("Other residence redirects to location", () => {
+      const d = gateDecision(Object.assign({}, baseDecision, { residence: "Other" }));
+      assertEqual(d.url, "application-closed.html?reason=location");
+    });
+    test("unlisted residence redirects to location", () => {
+      const d = gateDecision(Object.assign({}, baseDecision, { residence: "Mars" }));
+      assertEqual(d.url, "application-closed.html?reason=location");
+    });
+    test("unlisted passport redirects to passport reason", () => {
+      const d = gateDecision(Object.assign({}, baseDecision, { passportCountry: "Other" }));
+      assertEqual(d.url, "application-closed.html?reason=passport");
+    });
+    test("missing target form routes to contact", () => {
+      const d = gateDecision(Object.assign({}, baseDecision, { targetFormUrl: null }));
+      assertEqual(d.url, "contact.html");
+    });
+    test("eligible visa answer applies with destination attached", () => {
+      const d = gateDecision(baseDecision);
+      assertEqual(d.type, "apply");
+      assert(d.url.includes("destination=New+Zealand"), "destination not attached");
+    });
+    test("negative visa answer routes to ineligible", () => {
+      const d = gateDecision(Object.assign({}, baseDecision, { visaAnswer: "no" }));
+      assertEqual(d.url, "application-closed.html?reason=ineligible&destination=New%20Zealand");
+    });
+    test("unsure visa answer routes to unsure", () => {
+      const d = gateDecision(Object.assign({}, baseDecision, { visaAnswer: "unsure" }));
+      assertEqual(d.url, "application-closed.html?reason=unsure&destination=New%20Zealand");
+    });
+
+    group("Gallery: maths helpers");
+    test("pageCount always has at least one page", () => {
+      assertEqual(pageCount(0, 12), 1);
+      assertEqual(pageCount(12, 12), 1);
+      assertEqual(pageCount(13, 12), 2);
+    });
+    test("pageSlice clamps the page and slices correctly", () => {
+      const items = Array.from({ length: 18 }, (_, i) => i);
+      const first = pageSlice(items, 1, 12);
+      assertEqual(first.totalPages, 2);
+      assertEqual(first.items.length, 12);
+      const second = pageSlice(items, 2, 12);
+      assertEqual(second.items.length, 6);
+      const beyond = pageSlice(items, 99, 12);
+      assertEqual(beyond.page, 2);
+      assertEqual(beyond.items.length, 6);
+    });
+    test("clamp bounds a value", () => {
+      assertEqual(clamp(5, 0, 3), 3);
+      assertEqual(clamp(-1, 0, 3), 0);
+      assertEqual(clamp(2, 0, 3), 2);
+    });
+    test("nextLightboxIndex wraps in both directions", () => {
+      assertEqual(nextLightboxIndex(0, -1, 5), 4);
+      assertEqual(nextLightboxIndex(4, 1, 5), 0);
+      assertEqual(nextLightboxIndex(0, 1, 0), 0);
+    });
+    test("isVideoSource is case-insensitive", () => {
+      assert(isVideoSource("clip.mp4"));
+      assert(isVideoSource("CLIP.MP4"));
+      assert(!isVideoSource("photo.jpg"));
+    });
+
+    // ----- DOM integration -----
+    const fixtures = document.getElementById("fixtures");
+
+    group("DOM: footer email");
+    test("initFooterEmail assembles the reversed address", () => {
+      initFooterEmail();
+      assertEqual(fixtures.querySelector(".js-email").textContent, "recruitment@agribridge.com.mx");
+    });
+
+    group("DOM: application cards");
+    test("clicking a card stores the intended form URL", () => {
+      sessionStorage.removeItem(TARGET_FORM_KEY);
+      const link = document.getElementById("fixture-card");
+      link.addEventListener("click", (event) => event.preventDefault());
+      initApplicationCards();
+      link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      assertEqual(sessionStorage.getItem(TARGET_FORM_KEY),
+        "https://docs.google.com/forms/d/e/EXAMPLE/viewform");
+    });
+
+    group("DOM: gate outcome messaging");
+    test("location outcome updates the card", () => {
+      initGateOutcome("?reason=location");
+      assertEqual(document.getElementById("eligibility-heading").textContent,
+        "Thank you for your interest in Agribridge");
+      assert(document.getElementById("visa-information").classList.contains("d-none"));
+      assert(document.getElementById("eligibility-recheck").hidden);
+    });
+    test("unsure + Australia hides the NZ link", () => {
+      initGateOutcome("?reason=unsure&destination=Australia");
+      assert(!document.getElementById("eligibility-recheck").hidden);
+      assert(document.getElementById("nz-visa-link").classList.contains("d-none"));
+      assert(!document.getElementById("au-417-visa-link").classList.contains("d-none"));
+    });
+    test("ineligible + New Zealand hides the AU links", () => {
+      initGateOutcome("?reason=ineligible&destination=New%20Zealand");
+      assert(!document.getElementById("visa-information").classList.contains("d-none"));
+      assert(document.getElementById("au-417-visa-link").classList.contains("d-none"));
+      assert(document.getElementById("au-462-visa-link").classList.contains("d-none"));
+      assert(!document.getElementById("nz-visa-link").classList.contains("d-none"));
+      assert(document.getElementById("eligibility-recheck").hidden);
+    });
+
+    group("DOM: gallery");
+    function buildGallery() {
+      const grid = document.getElementById("gallery-items");
+      grid.innerHTML = "";
+      for (let i = 0; i < 18; i += 1) {
+        const type = i < 15 ? "photo" : "video";
+        const ext = type === "photo" ? "jpg" : "mp4";
+        const card = document.createElement("div");
+        card.className = "gallery-card";
+        card.dataset.type = type;
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "gallery-item";
+        item.dataset.target = "https://example.com/media-" + i + "." + ext;
+        card.appendChild(item);
+        grid.appendChild(card);
+      }
+    }
+
+    let galleryApi = null;
+    test("initGallery paginates the grid", () => {
+      buildGallery();
+      galleryApi = initGallery();
+      const cards = document.querySelectorAll(".gallery-card");
+      assertEqual(cards.length, 18);
+      assert(!cards[0].classList.contains("d-none"), "first card should be visible");
+      assert(cards[12].classList.contains("d-none"), "13th card should be hidden");
+      assertEqual(document.querySelectorAll("#pagination .page-item").length, 2);
+    });
+    test("pagination click moves to the next page", () => {
+      const links = document.querySelectorAll("#pagination .page-link");
+      links[1].dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      const cards = document.querySelectorAll(".gallery-card");
+      assert(cards[0].classList.contains("d-none"), "first card should now be hidden");
+      assert(!cards[12].classList.contains("d-none"), "13th card should now be visible");
+    });
+    test("filtering to video hides photos and resets pagination", () => {
+      const videoFilter = document.querySelector('.filter-btn[data-filter="video"]');
+      videoFilter.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      const photos = document.querySelectorAll('.gallery-card[data-type="photo"]');
+      const videos = document.querySelectorAll('.gallery-card[data-type="video"]');
+      assert(Array.from(photos).every((card) => card.classList.contains("hidden-card")),
+        "photos should be filtered out");
+      assert(Array.from(videos).every((card) => !card.classList.contains("hidden-card")),
+        "videos should remain");
+      assertEqual(document.querySelectorAll("#pagination .page-item").length, 0);
+    });
+    test("lightbox opens, navigates and closes", () => {
+      const allFilter = document.querySelector('.filter-btn[data-filter="all"]');
+      allFilter.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+      const firstItem = document.querySelector(".gallery-card:not(.hidden-card):not(.d-none) .gallery-item");
+      firstItem.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+      const lightbox = document.getElementById("lightbox");
+      assert(lightbox.classList.contains("visible"), "lightbox should be visible");
+      assertEqual(document.getElementById("lightbox-current").textContent, "1");
+      assertEqual(document.getElementById("lightbox-total").textContent, "12");
+
+      galleryApi.stepLightbox(1);
+      assertEqual(document.getElementById("lightbox-current").textContent, "2");
+
+      galleryApi.closeLightbox();
+      assert(!lightbox.classList.contains("visible"), "lightbox should be closed");
+    });
+
+    // ----- render -----
+    const passed = results.filter((r) => r.ok).length;
+    const failed = results.length - passed;
+    const summary = document.getElementById("summary");
+    summary.textContent = passed + " passed, " + failed + " failed (" + results.length + " total)";
+    summary.className = failed ? "fail" : "pass";
+
+    for (const result of results) {
+      const list = document.querySelector('ol[data-group="' + result.group + '"]');
+      const li = document.createElement("li");
+      li.className = result.ok ? "pass" : "fail";
+      li.textContent = result.name;
+      if (!result.ok) {
+        const pre = document.createElement("pre");
+        pre.textContent = result.error;
+        li.appendChild(pre);
+      }
+      list.appendChild(li);
+    }
+
+    window.__agribridgeTests = { passed, failed, total: results.length, results };
+  </script>
+</body>
+</html>
