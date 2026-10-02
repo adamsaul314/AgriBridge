@@ -62,6 +62,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // ===== Footer email de-obfuscation (CHROME-03) =====
+  // The address is absent from the served HTML; it is assembled at runtime from
+  // reversed parts so simple harvesting bots don't see a plain mailbox. Visitors
+  // without JavaScript see the envelope icon but no address.
+  document.querySelectorAll('.js-email').forEach(function (el) {
+    var user = el.getAttribute('data-u');
+    var domain = el.getAttribute('data-d');
+    if (!user || !domain) return;
+    el.textContent = user + '@' + domain.split('').reverse().join('');
+  });
+
   // ===== Eligibility gate (country-check.html) =====
   var countryGateForm = document.getElementById('country-gate-form');
   if (countryGateForm) {

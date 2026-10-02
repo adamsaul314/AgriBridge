@@ -974,6 +974,17 @@ footer .container {
   height: 50px;
 }
 
+/* Shared chrome sizing (CHROME-04): kept out of inline styles so it can be
+   themed and overridden by media queries. */
+.navbar-logo {
+  height: 60px;
+  transition: transform 0.3s ease;
+}
+
+.footer-logo-img {
+  height: 45px;
+}
+
 .no-scroll {
   overflow: hidden;
   height: 100%;
