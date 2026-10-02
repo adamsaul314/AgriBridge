@@ -17,28 +17,27 @@ Desktop.ini
 .idea/
 .vscode/
 
-# --- Large media belongs in Google Cloud Storage, not in git ---
-# Raw gallery originals and source video must not be re-added (see REPO-01/REPO-02).
-/assets/gallery/*.JPG
-/assets/gallery/*.jpg
-/assets/gallery/*.jpeg
-/assets/gallery/*.png
-/assets/gallery/*.MP4
-/assets/gallery/*.mp4
-/assets/gallery/*.MOV
-/assets/gallery/*.mov
+# --- Media belongs in Google Cloud Storage, not in git ---
+# Images, logos, posters and video are uploaded to gs://agribridge and served by
+# public bucket URL. The local copies are kept only as upload sources; publish
+# them with scripts/upload-media.sh. See DECISIONS.md and ISSUES.md (REPO-01/02).
+/assets/**/*.jpg
+/assets/**/*.jpeg
+/assets/**/*.png
+/assets/**/*.gif
+/assets/**/*.webp
+/assets/**/*.svg
+/assets/**/*.ico
+/assets/**/*.mp4
+/assets/**/*.mov
+/assets/**/*.avi
+/assets/**/*.mkv
 /assets/carousel/
 
-# General video is ignored, except the compressed hero, which is a tracked live
-# asset served locally.
-*.mp4
-*.MP4
-*.mov
-*.MOV
-*.avi
-*.mkv
-!assets/videos/hero.mp4
-
-# --- Python ---
-__pycache__/
-*.py[cod]
+# Small brand chrome stays in the repo: same-origin favicon and Open Graph
+# image, and reviewable logo changes. Everything else under assets/ is an
+# upload source for the bucket.
+!/assets/images/hero-poster.jpg
+!/assets/logos/agribridge-logo.png
+!/assets/logos/Transparent Logo.png
+!/assets/logos/Favicon Transparent.ico

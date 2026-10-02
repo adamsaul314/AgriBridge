@@ -13,6 +13,7 @@ of the JavaScript itself is covered by the browser suite in tests/index.html.
 import glob
 import os
 import re
+import subprocess
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -229,6 +230,71 @@ class HtmlHygieneTests(unittest.TestCase):
             self.assertIn('<html lang="en">', html, name)
 
 
+class MediaHostingTests(unittest.TestCase):
+    MEDIA_EXTENSIONS = (".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".ico",
+                        ".mp4", ".mov", ".avi", ".mkv")
+    BUCKET = "https://storage.googleapis.com/agribridge"
+    # Small, stable brand chrome that deliberately stays in the repo.
+    CHROME = {
+        "assets/images/hero-poster.jpg",
+        "assets/logos/agribridge-logo.png",
+        "assets/logos/Transparent Logo.png",
+        "assets/logos/Favicon Transparent.ico",
+    }
+
+    def tracked_files(self):
+        result = subprocess.run(["git", "ls-files"], cwd=ROOT,
+                                capture_output=True, text=True, check=True)
+        return result.stdout.splitlines()
+
+    def test_only_brand_chrome_media_is_tracked(self):
+        tracked_media = {
+            path for path in self.tracked_files()
+            if path.startswith("assets/") and path.lower().endswith(self.MEDIA_EXTENSIONS)
+        }
+        self.assertEqual(tracked_media, self.CHROME,
+                         "tracked media differs from the chrome allowlist: " +
+                         ", ".join(sorted(tracked_media ^ self.CHROME)))
+
+    def test_gallery_and_hero_video_are_not_tracked(self):
+        tracked = self.tracked_files()
+        self.assertFalse(any(p.startswith("assets/gallery/") for p in tracked),
+                         "gallery media should not be tracked")
+        self.assertFalse(any(p.startswith("assets/videos/") for p in tracked),
+                         "video should not be tracked")
+
+    def test_brand_chrome_is_served_locally(self):
+        for name, html in page_texts().items():
+            self.assertIn('href="assets/logos/Favicon Transparent.ico"', html, name + " favicon")
+            self.assertIn('src="assets/logos/agribridge-logo.png"', html, name + " navbar logo")
+            self.assertIn('src="assets/logos/Transparent Logo.png"', html, name + " footer logo")
+
+    def test_open_graph_image_is_local(self):
+        expected = "https://agribridgerecruitment.com/assets/images/hero-poster.jpg"
+        for name, html in page_texts().items():
+            for tag in re.findall(r'<meta[^>]*(?:property="og:image"|name="twitter:image")[^>]*>', html):
+                self.assertIn(expected, tag, name + ": " + tag)
+
+    def test_gallery_thumbnails_are_on_the_bucket(self):
+        html = read("gallery.html")
+        grid = html[html.index('id="gallery-items"'):html.index('id="pagination"')]
+        sources = re.findall(r'<img src="([^"]+)"', grid)
+        self.assertTrue(sources, "gallery grid has no thumbnail images")
+        for src in sources:
+            self.assertTrue(src.startswith(self.BUCKET + "/thumbs/"),
+                            "gallery thumbnail not on bucket: " + src)
+
+    def test_hero_video_is_on_the_bucket(self):
+        self.assertIn(self.BUCKET + "/hero.mp4", read("index.html"))
+
+    def test_upload_script_covers_only_external_media(self):
+        script = read("scripts/upload-media.sh")
+        self.assertIn("assets/gallery/thumbs/*.webp", script)
+        self.assertIn("assets/videos/hero.mp4", script)
+        self.assertNotIn("hero-poster", script)
+        self.assertNotIn("assets/logos", script)
+
+
 class StyleSheetTests(unittest.TestCase):
     def test_braces_are_balanced(self):
         css = re.sub(r"/\*.*?\*/", "", read("assets/css/styles.css"), flags=re.S)
@@ -242,6 +308,11 @@ class StyleSheetTests(unittest.TestCase):
         css = read("assets/css/styles.css")
         for selector in [".section-cta", ".subsection-title", ".media-cover", ".testimonial-photo"]:
             self.assertIn(selector, css, "missing stylesheet class " + selector)
+
+    def test_stylesheet_uses_local_poster(self):
+        css = read("assets/css/styles.css")
+        self.assertIn('url("assets/images/hero-poster.jpg")', css)
+        self.assertNotIn("storage.googleapis.com", css, "stylesheet should only use local chrome")
 
 
 class JavaScriptTests(unittest.TestCase):
