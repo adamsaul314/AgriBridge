@@ -41,3 +41,15 @@ Desktop.ini
 !/assets/logos/agribridge-logo.png
 !/assets/logos/Transparent Logo.png
 !/assets/logos/Favicon Transparent.ico
+
+# --- Cloud credentials: never commit ---
+# scripts/upload-media.sh authenticates via `gcloud auth login` (Application
+# Default Credentials), so no key files are ever needed in the repo. These
+# patterns stop a service-account key being added by accident.
+.gcloud/
+service-account*.json
+*-service-account.json
+application_default_credentials.json
+*-key.json
+*.pem
+*.p12
