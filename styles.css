@@ -315,73 +315,6 @@ body {
     margin-bottom: 18px;
   }
 
-  /* Contact Form Styles */
-.contact-form-section {
-    padding: 80px 20px;
-    background: #f4f7f6;
-  }
-  
-  .contact-form-section .container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .contact-form-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #023047;
-  }
-  
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-  
-  .contact-form .form-group {
-    width: 100%;
-  }
-  
-  .contact-form .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .contact-form .form-group input,
-  .contact-form .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .contact-form .form-group button {
-    background-color: #023047;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .contact-form .form-group button:hover {
-    background-color: #ffb703;
-  }
-
-  .contact-form .form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #fff;
-  }
-
   .country-gate-page,
   .country-closed-page {
     padding: 80px 20px;
@@ -592,22 +525,6 @@ body {
       font-size: 1rem;
     }
   
-    /* Contact Form */
-    .contact-form-section {
-      padding: 40px 15px;
-    }
-  
-    .contact-form-section h2 {
-      font-size: 2rem;
-    }
-  
-    .contact-form {
-      gap: 15px;
-    }
-  
-    .contact-form .form-group {
-      width: 100%;
-    }
   }
 
   .gallery-item {
@@ -2935,5 +2852,20 @@ section.py-5 {
   /* --- YouTube Embeds --- */
   .ratio.ratio-16x9 {
     border-radius: 10px;
+  }
+}
+
+/* ===== Reduced motion (SEO-03) =====
+   When a visitor asks their system to minimise motion, collapse every animation
+   and transition to a near-instant duration rather than removing content. The
+   hero video and its zoom animation are handled separately near .home-hero. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

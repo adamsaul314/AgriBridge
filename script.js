@@ -1,4 +1,35 @@
+// AgriBridge — shared script (loaded by every page).
+//
+// This single bundle serves all pages. Each page-specific feature is wrapped in
+// safeFeature() and begins with its own guard (an early `return` when the markup
+// it needs is absent), so loading it on a page that doesn't use it is harmless.
+// Every feature is registered in one DOMContentLoaded handler below (JS-02).
+//
+// Convention for new work: add a named safeFeature(...) block, check for the
+// elements you need before touching them, and never share mutable state across
+// features without going through module-level helpers (as the funnel does).
+
 document.addEventListener("DOMContentLoaded", function () {
+
+  // ===== Error isolation (JS-03) =====
+  // Every feature below initialises inside its own guard. If one feature throws
+  // (unexpected markup, a browser API that is unavailable, etc.) the error is
+  // logged and contained, so the rest of the page's JavaScript still runs.
+  function safeFeature(name, init) {
+    try {
+      init();
+    } catch (error) {
+      if (window.console && typeof window.console.error === 'function') {
+        window.console.error('AgriBridge: "' + name + '" failed to initialise.', error);
+      }
+    }
+  }
+
+  // Honour the reduced-motion preference for behaviour CSS cannot control:
+  // smooth scrolling and video autoplay in the lightbox (SEO-03).
+  function prefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
 
   // ===== Funnel state =====
   // The intended application form is kept in sessionStorage so it can be handed
@@ -47,18 +78,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // The anchors point at country-check.html so left-click, new-tab, modified-click
   // and JS-disabled users all pass through the eligibility gate. JS only records
   // which form the user intended to reach (FUN-04).
-  var applicationLinks = document.querySelectorAll('[data-application-form]');
+  safeFeature('application cards', function () {
+    var applicationLinks = document.querySelectorAll('[data-application-form]');
 
-  if (applicationLinks.length) {
+    if (!applicationLinks.length) return;
+
     // A fresh visit to the application hub always starts from a clean slate (FUN-02).
     safeStorageRemove(TARGET_URL_KEY);
-  }
 
-  applicationLinks.forEach(function (link) {
-    link.addEventListener('click', function () {
-      // Deliberately no preventDefault(): the anchor's own href routes the user
-      // through the gate even if this handler or storage fails (FUN-03).
-      safeStorageSet(TARGET_URL_KEY, link.dataset.applicationForm);
+    applicationLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        // Deliberately no preventDefault(): the anchor's own href routes the user
+        // through the gate even if this handler or storage fails (FUN-03).
+        safeStorageSet(TARGET_URL_KEY, link.dataset.applicationForm);
+      });
     });
   });
 
@@ -66,16 +99,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // The address is absent from the served HTML; it is assembled at runtime from
   // reversed parts so simple harvesting bots don't see a plain mailbox. Visitors
   // without JavaScript see the envelope icon but no address.
-  document.querySelectorAll('.js-email').forEach(function (el) {
-    var user = el.getAttribute('data-u');
-    var domain = el.getAttribute('data-d');
-    if (!user || !domain) return;
-    el.textContent = user + '@' + domain.split('').reverse().join('');
+  safeFeature('footer email', function () {
+    document.querySelectorAll('.js-email').forEach(function (el) {
+      var user = el.getAttribute('data-u');
+      var domain = el.getAttribute('data-d');
+      if (!user || !domain) return;
+      el.textContent = user + '@' + domain.split('').reverse().join('');
+    });
   });
 
   // ===== Eligibility gate (country-check.html) =====
-  var countryGateForm = document.getElementById('country-gate-form');
-  if (countryGateForm) {
+  safeFeature('eligibility gate', function () {
+    var countryGateForm = document.getElementById('country-gate-form');
+    if (!countryGateForm) return;
+
     var residenceSelect = document.getElementById('residence-select');
     var passportSelect = document.getElementById('passport-country');
     var destinationSelect = document.getElementById('destination-select');
@@ -127,11 +164,13 @@ document.addEventListener("DOMContentLoaded", function () {
           '&destination=' + encodeURIComponent(selectedDestination);
       }
     });
-  }
+  });
 
   // ===== Gate outcome messaging (application-closed.html) =====
-  var closedPage = document.querySelector('.country-closed-card');
-  if (closedPage) {
+  safeFeature('gate outcome messaging', function () {
+    var closedPage = document.querySelector('.country-closed-card');
+    if (!closedPage) return;
+
     var params = new URLSearchParams(window.location.search);
     var reason = params.get('reason');
     var destination = params.get('destination');
@@ -190,27 +229,31 @@ document.addEventListener("DOMContentLoaded", function () {
       visaInformation.classList.remove('d-none');
       recheckLink.hidden = true;
     }
-  }
+  });
 
   // ===== Gallery thumbnail reveal =====
   // Grid thumbnails are real <img src> elements using native loading="lazy",
   // so they render with or without JavaScript (GAL-01). This only marks an
   // image once it has decoded so the CSS shimmer placeholder can stop.
-  document.querySelectorAll('.gallery-thumb img').forEach(function (img) {
-    function markLoaded() { img.classList.add('loaded'); }
-    if (img.complete) {
-      markLoaded();
-    } else {
-      img.addEventListener('load', markLoaded, { once: true });
-      img.addEventListener('error', markLoaded, { once: true });
-    }
+  safeFeature('gallery thumbnails', function () {
+    document.querySelectorAll('.gallery-thumb img').forEach(function (img) {
+      function markLoaded() { img.classList.add('loaded'); }
+      if (img.complete) {
+        markLoaded();
+      } else {
+        img.addEventListener('load', markLoaded, { once: true });
+        img.addEventListener('error', markLoaded, { once: true });
+      }
+    });
   });
 
   // ===== Gallery Filter =====
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const allCards = Array.from(document.querySelectorAll('.gallery-card'));
+  safeFeature('gallery filter', function () {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const allCards = Array.from(document.querySelectorAll('.gallery-card'));
 
-  if (filterBtns.length) {
+    if (!filterBtns.length) return;
+
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
@@ -226,172 +269,178 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Re-run pagination after filter
-        if (typeof initPagination === 'function') {
-          initPagination();
+        if (typeof window.initPagination === 'function') {
+          window.initPagination();
         }
       });
     });
-  }
+  });
 
   // ===== Lightbox =====
-  const galleryItems = document.querySelectorAll(".gallery-item");
-  const lightbox = document.getElementById("lightbox");
-  const lightboxContent = document.getElementById("lightbox-content");
-  const closeBtn = document.querySelector(".lightbox-close");
-  const prevBtn = document.querySelector(".lightbox-prev");
-  const nextBtn = document.querySelector(".lightbox-next");
-  const counterCurrent = document.getElementById("lightbox-current");
-  const counterTotal = document.getElementById("lightbox-total");
+  safeFeature('lightbox', function () {
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxContent = document.getElementById("lightbox-content");
+    const closeBtn = document.querySelector(".lightbox-close");
+    const prevBtn = document.querySelector(".lightbox-prev");
+    const nextBtn = document.querySelector(".lightbox-next");
+    const counterCurrent = document.getElementById("lightbox-current");
+    const counterTotal = document.getElementById("lightbox-total");
 
-  var currentIndex = 0;
-  // Snapshot of the visible media, rebuilt when the lightbox opens. Navigation
-  // then works off this list instead of re-querying live filter/pagination
-  // classes on every keypress (GAL-04).
-  var lightboxItems = [];
-  var lastFocusedElement = null;
+    if (!lightbox || !galleryItems.length) return;
 
-  function getVisibleItems() {
-    return Array.from(document.querySelectorAll('.gallery-card:not(.hidden-card):not(.d-none) .gallery-item'));
-  }
+    var currentIndex = 0;
+    // Snapshot of the visible media, rebuilt when the lightbox opens. Navigation
+    // then works off this list instead of re-querying live filter/pagination
+    // classes on every keypress (GAL-04).
+    var lightboxItems = [];
+    var lastFocusedElement = null;
 
-  function refreshLightboxItems() {
-    lightboxItems = getVisibleItems();
-    return lightboxItems;
-  }
+    function getVisibleItems() {
+      return Array.from(document.querySelectorAll('.gallery-card:not(.hidden-card):not(.d-none) .gallery-item'));
+    }
 
-  function mediaSource(item) {
-    return item ? item.getAttribute("data-target") : null;
-  }
+    function refreshLightboxItems() {
+      lightboxItems = getVisibleItems();
+      return lightboxItems;
+    }
 
-  function showMedia(index) {
-    if (!lightboxItems.length) return;
-    if (index < 0) index = 0;
-    if (index >= lightboxItems.length) index = lightboxItems.length - 1;
-    currentIndex = index;
+    function mediaSource(item) {
+      return item ? item.getAttribute("data-target") : null;
+    }
 
-    var mediaSrc = mediaSource(lightboxItems[currentIndex]);
-    if (!mediaSrc) return;
-    var ext = mediaSrc.split('.').pop().toLowerCase();
-    lightboxContent.innerHTML = '';
+    function showMedia(index) {
+      if (!lightboxItems.length) return;
+      if (index < 0) index = 0;
+      if (index >= lightboxItems.length) index = lightboxItems.length - 1;
+      currentIndex = index;
 
-    if (ext === "mp4") {
-      var video = document.createElement("video");
-      video.controls = true;
-      video.autoplay = true;
-      // Autoplay is only dependable when muted; controls let users unmute.
-      video.muted = true;
-      video.setAttribute("playsinline", "");
-      video.setAttribute("webkit-playsinline", "");
-      var source = document.createElement("source");
-      source.src = mediaSrc;
-      source.type = "video/mp4";
-      video.appendChild(source);
-      lightboxContent.appendChild(video);
-      // Some browsers still reject autoplay; ignore and leave controls usable.
-      var playPromise = video.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(function () {});
+      var mediaSrc = mediaSource(lightboxItems[currentIndex]);
+      if (!mediaSrc) return;
+      var ext = mediaSrc.split('.').pop().toLowerCase();
+      lightboxContent.innerHTML = '';
+
+      if (ext === "mp4") {
+        var reduceMotion = prefersReducedMotion();
+        var video = document.createElement("video");
+        video.controls = true;
+        video.autoplay = !reduceMotion;
+        // Autoplay is only dependable when muted; controls let users unmute.
+        video.muted = true;
+        video.setAttribute("playsinline", "");
+        video.setAttribute("webkit-playsinline", "");
+        var source = document.createElement("source");
+        source.src = mediaSrc;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        lightboxContent.appendChild(video);
+        // Reduced-motion visitors get a paused video they can start themselves.
+        // Otherwise autoplay, ignoring browsers that still reject it.
+        if (!reduceMotion) {
+          var playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {});
+          }
+        }
+      } else {
+        var img = document.createElement("img");
+        img.src = mediaSrc;
+        img.alt = "";
+        lightboxContent.appendChild(img);
       }
-    } else {
-      var img = document.createElement("img");
-      img.src = mediaSrc;
-      img.alt = "";
-      lightboxContent.appendChild(img);
+
+      counterCurrent.textContent = currentIndex + 1;
+      counterTotal.textContent = lightboxItems.length;
     }
 
-    counterCurrent.textContent = currentIndex + 1;
-    counterTotal.textContent = lightboxItems.length;
-  }
-
-  function getFocusableLightboxElements() {
-    return Array.from(lightbox.querySelectorAll('button, [href], video[controls], [tabindex]:not([tabindex="-1"])'));
-  }
-
-  function openLightbox(index) {
-    lastFocusedElement = document.activeElement;
-    currentIndex = index;
-    lightbox.classList.add("visible");
-    lightbox.setAttribute("aria-hidden", "false");
-    document.body.classList.add("no-scroll");
-    showMedia(currentIndex);
-    // Move focus into the dialog (GAL-05).
-    if (closeBtn) closeBtn.focus();
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove("visible");
-    lightbox.setAttribute("aria-hidden", "true");
-    lightboxContent.innerHTML = '';
-    document.body.classList.remove("no-scroll");
-    // Return focus to the thumbnail that opened the lightbox (GAL-05).
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-      lastFocusedElement.focus();
+    function getFocusableLightboxElements() {
+      return Array.from(lightbox.querySelectorAll('button, [href], video[controls], [tabindex]:not([tabindex="-1"])'));
     }
-    lastFocusedElement = null;
-  }
 
-  function stepLightbox(delta) {
-    if (!lightboxItems.length) return;
-    currentIndex = (currentIndex + delta + lightboxItems.length) % lightboxItems.length;
-    showMedia(currentIndex);
-  }
+    function openLightbox(index) {
+      lastFocusedElement = document.activeElement;
+      currentIndex = index;
+      lightbox.classList.add("visible");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+      showMedia(currentIndex);
+      // Move focus into the dialog (GAL-05).
+      if (closeBtn) closeBtn.focus();
+    }
 
-  galleryItems.forEach(function (item) {
-    item.addEventListener("click", function (e) {
-      e.preventDefault();
-      refreshLightboxItems();
-      var idx = lightboxItems.indexOf(item);
-      if (idx === -1) idx = 0;
-      openLightbox(idx);
-    });
-  });
-
-  if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
-
-  // Click backdrop to close
-  var backdrop = document.querySelector('.lightbox-backdrop');
-  if (backdrop) {
-    backdrop.addEventListener('click', closeLightbox);
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      stepLightbox(1);
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      stepLightbox(-1);
-    });
-  }
-
-  // Keyboard navigation + focus trap (GAL-05)
-  document.addEventListener("keydown", function (e) {
-    if (!lightbox || !lightbox.classList.contains("visible")) return;
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") stepLightbox(1);
-    if (e.key === "ArrowLeft") stepLightbox(-1);
-    if (e.key === "Tab") {
-      var focusables = getFocusableLightboxElements();
-      if (!focusables.length) return;
-      var first = focusables[0];
-      var last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
+    function closeLightbox() {
+      lightbox.classList.remove("visible");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxContent.innerHTML = '';
+      document.body.classList.remove("no-scroll");
+      // Return focus to the thumbnail that opened the lightbox (GAL-05).
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
       }
+      lastFocusedElement = null;
     }
-  });
 
-  // Touch swipe support
-  var touchStartX = 0;
-  if (lightbox) {
+    function stepLightbox(delta) {
+      if (!lightboxItems.length) return;
+      currentIndex = (currentIndex + delta + lightboxItems.length) % lightboxItems.length;
+      showMedia(currentIndex);
+    }
+
+    galleryItems.forEach(function (item) {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+        refreshLightboxItems();
+        var idx = lightboxItems.indexOf(item);
+        if (idx === -1) idx = 0;
+        openLightbox(idx);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+
+    // Click backdrop to close
+    var backdrop = document.querySelector('.lightbox-backdrop');
+    if (backdrop) {
+      backdrop.addEventListener('click', closeLightbox);
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        stepLightbox(1);
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        stepLightbox(-1);
+      });
+    }
+
+    // Keyboard navigation + focus trap (GAL-05)
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("visible")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") stepLightbox(1);
+      if (e.key === "ArrowLeft") stepLightbox(-1);
+      if (e.key === "Tab") {
+        var focusables = getFocusableLightboxElements();
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    // Touch swipe support
+    var touchStartX = 0;
     lightbox.addEventListener('touchstart', function (e) {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
@@ -402,71 +451,53 @@ document.addEventListener("DOMContentLoaded", function () {
         stepLightbox(diff < 0 ? 1 : -1);
       }
     }, { passive: true });
-  }
+  });
 
   // ===== Pagination =====
-  var itemsPerPage = 12;
-  var galleryContainer = document.getElementById("gallery-items");
-  var paginationContainer = document.getElementById("pagination");
+  safeFeature('pagination', function () {
+    var itemsPerPage = 12;
+    var galleryContainer = document.getElementById("gallery-items");
+    var paginationContainer = document.getElementById("pagination");
 
-  function initPagination() {
     if (!galleryContainer || !paginationContainer) return;
-    var visibleCards = Array.from(galleryContainer.querySelectorAll('.gallery-card:not(.hidden-card)'));
-    var totalPages = Math.ceil(visibleCards.length / itemsPerPage);
-    renderPage(1, visibleCards, totalPages);
-  }
-  // Expose globally so filters can call it
-  window.initPagination = initPagination;
 
-  function renderPage(page, visibleCards, totalPages) {
-    visibleCards.forEach(function (item) { item.classList.add("d-none"); });
-    var start = (page - 1) * itemsPerPage;
-    var end = start + itemsPerPage;
-    visibleCards.slice(start, end).forEach(function (item) { item.classList.remove("d-none"); });
-    renderPagination(page, totalPages, visibleCards);
-  }
-
-  function renderPagination(currentPage, totalPages, visibleCards) {
-    paginationContainer.innerHTML = "";
-    if (totalPages <= 1) return;
-    for (var i = 1; i <= totalPages; i++) {
-      (function (pageNum) {
-        var li = document.createElement("li");
-        li.className = "page-item" + (pageNum === currentPage ? " active" : "");
-        li.innerHTML = '<a class="page-link" href="#">' + pageNum + '</a>';
-        li.addEventListener("click", function (e) {
-          e.preventDefault();
-          renderPage(pageNum, visibleCards, totalPages);
-          window.scrollTo({ top: galleryContainer.offsetTop - 100, behavior: 'smooth' });
-        });
-        paginationContainer.appendChild(li);
-      })(i);
+    function initPagination() {
+      var visibleCards = Array.from(galleryContainer.querySelectorAll('.gallery-card:not(.hidden-card)'));
+      var totalPages = Math.ceil(visibleCards.length / itemsPerPage);
+      renderPage(1, visibleCards, totalPages);
     }
-  }
+    // Expose globally so filters can call it
+    window.initPagination = initPagination;
 
-  initPagination();
-});
+    function renderPage(page, visibleCards, totalPages) {
+      visibleCards.forEach(function (item) { item.classList.add("d-none"); });
+      var start = (page - 1) * itemsPerPage;
+      var end = start + itemsPerPage;
+      visibleCards.slice(start, end).forEach(function (item) { item.classList.remove("d-none"); });
+      renderPagination(page, totalPages, visibleCards);
+    }
 
-// ===== Contact Page Tab Functionality =====
-document.addEventListener("DOMContentLoaded", function () {
-  var workerTab = document.getElementById("worker-tab");
-  var employerTab = document.getElementById("employer-tab");
-  var workerForm = document.getElementById("worker-form");
-  var employerForm = document.getElementById("employer-form");
+    function renderPagination(currentPage, totalPages, visibleCards) {
+      paginationContainer.innerHTML = "";
+      if (totalPages <= 1) return;
+      for (var i = 1; i <= totalPages; i++) {
+        (function (pageNum) {
+          var li = document.createElement("li");
+          li.className = "page-item" + (pageNum === currentPage ? " active" : "");
+          li.innerHTML = '<a class="page-link" href="#">' + pageNum + '</a>';
+          li.addEventListener("click", function (e) {
+            e.preventDefault();
+            renderPage(pageNum, visibleCards, totalPages);
+            window.scrollTo({
+              top: galleryContainer.offsetTop - 100,
+              behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+            });
+          });
+          paginationContainer.appendChild(li);
+        })(i);
+      }
+    }
 
-  if (workerTab && employerTab) {
-    workerTab.addEventListener("click", function () {
-      workerForm.style.display = "block";
-      employerForm.style.display = "none";
-      workerTab.classList.add("active");
-      employerTab.classList.remove("active");
-    });
-
-    employerTab.addEventListener("click", function () {
-      workerForm.style.display = "none";
-      employerForm.style.display = "block";
-      employerTab.classList.add("active");
-      workerTab.classList.remove("active");
-    });
-  }
+    initPagination();
+  });
 });

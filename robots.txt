@@ -1,0 +1,6 @@
+# AgriBridge - https://agribridgerecruitment.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://agribridgerecruitment.com/sitemap.xml
