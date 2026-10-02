@@ -611,8 +611,21 @@ body {
   }
 
   .gallery-item {
-    text-decoration: none;
     display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .gallery-item:focus-visible {
+    outline: 3px solid #2a9d8f;
+    outline-offset: 2px;
   }
 
   
@@ -1095,6 +1108,8 @@ footer .container {
 
 .gallery-thumb img,
 .gallery-thumb video {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1102,16 +1117,8 @@ footer .container {
   transition: transform 0.4s ease, opacity 0.5s ease;
 }
 
-/* Lazy loading shimmer placeholder */
-.lazy-img,
-.lazy-video {
-  opacity: 0;
-}
-
-.lazy-img.loaded,
-.lazy-video.loaded {
-  opacity: 1;
-}
+/* Thumbnails are visible by default so the grid works without JavaScript
+   (GAL-01). The shimmer below sits behind the image and stops once loaded. */
 
 /* Shimmer animation for placeholders */
 .gallery-thumb::before {
@@ -1126,7 +1133,7 @@ footer .container {
   z-index: 1;
 }
 
-.gallery-thumb:has(.loaded)::before {
+.gallery-thumb:has(img.loaded)::before {
   display: none;
 }
 
@@ -1188,12 +1195,15 @@ footer .container {
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  /* Keep the closed dialog out of the tab order (GAL-05). */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .lightbox-v2.visible {
   opacity: 1;
   pointer-events: all;
+  visibility: visible;
 }
 
 .lightbox-backdrop {

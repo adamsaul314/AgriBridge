@@ -181,36 +181,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ===== Lazy Loading with IntersectionObserver =====
-  const lazyImages = document.querySelectorAll('.lazy-img');
-  const lazyVideos = document.querySelectorAll('.lazy-video');
-
-  const lazyObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        if (el.tagName === 'IMG' && el.dataset.src) {
-          el.src = el.dataset.src;
-          el.onload = function () { el.classList.add('loaded'); };
-          el.onerror = function () { el.classList.add('loaded'); };
-        } else if (el.tagName === 'VIDEO' && el.dataset.src) {
-          el.preload = 'metadata';
-          el.src = el.dataset.src;
-          el.onloadedmetadata = function () {
-            el.currentTime = 1;
-          };
-          el.onseeked = function () {
-            el.classList.add('loaded');
-          };
-          el.onerror = function () { el.classList.add('loaded'); };
-        }
-        lazyObserver.unobserve(el);
-      }
-    });
-  }, { rootMargin: '200px' });
-
-  lazyImages.forEach(function (img) { lazyObserver.observe(img); });
-  lazyVideos.forEach(function (vid) { lazyObserver.observe(vid); });
+  // ===== Gallery thumbnail reveal =====
+  // Grid thumbnails are real <img src> elements using native loading="lazy",
+  // so they render with or without JavaScript (GAL-01). This only marks an
+  // image once it has decoded so the CSS shimmer placeholder can stop.
+  document.querySelectorAll('.gallery-thumb img').forEach(function (img) {
+    function markLoaded() { img.classList.add('loaded'); }
+    if (img.complete) {
+      markLoaded();
+    } else {
+      img.addEventListener('load', markLoaded, { once: true });
+      img.addEventListener('error', markLoaded, { once: true });
+    }
+  });
 
   // ===== Gallery Filter =====
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -250,19 +233,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const counterTotal = document.getElementById("lightbox-total");
 
   var currentIndex = 0;
+  // Snapshot of the visible media, rebuilt when the lightbox opens. Navigation
+  // then works off this list instead of re-querying live filter/pagination
+  // classes on every keypress (GAL-04).
+  var lightboxItems = [];
+  var lastFocusedElement = null;
 
   function getVisibleItems() {
     return Array.from(document.querySelectorAll('.gallery-card:not(.hidden-card):not(.d-none) .gallery-item'));
   }
 
-  function getMediaSources() {
-    return getVisibleItems().map(function (item) { return item.getAttribute("data-target"); });
+  function refreshLightboxItems() {
+    lightboxItems = getVisibleItems();
+    return lightboxItems;
+  }
+
+  function mediaSource(item) {
+    return item ? item.getAttribute("data-target") : null;
   }
 
   function showMedia(index) {
-    var sources = getMediaSources();
-    if (!sources.length) return;
-    var mediaSrc = sources[index];
+    if (!lightboxItems.length) return;
+    if (index < 0) index = 0;
+    if (index >= lightboxItems.length) index = lightboxItems.length - 1;
+    currentIndex = index;
+
+    var mediaSrc = mediaSource(lightboxItems[currentIndex]);
+    if (!mediaSrc) return;
     var ext = mediaSrc.split('.').pop().toLowerCase();
     lightboxContent.innerHTML = '';
 
@@ -270,39 +267,69 @@ document.addEventListener("DOMContentLoaded", function () {
       var video = document.createElement("video");
       video.controls = true;
       video.autoplay = true;
+      // Autoplay is only dependable when muted; controls let users unmute.
+      video.muted = true;
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
       var source = document.createElement("source");
       source.src = mediaSrc;
       source.type = "video/mp4";
       video.appendChild(source);
       lightboxContent.appendChild(video);
+      // Some browsers still reject autoplay; ignore and leave controls usable.
+      var playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {});
+      }
     } else {
       var img = document.createElement("img");
       img.src = mediaSrc;
+      img.alt = "";
       lightboxContent.appendChild(img);
     }
 
-    counterCurrent.textContent = index + 1;
-    counterTotal.textContent = sources.length;
+    counterCurrent.textContent = currentIndex + 1;
+    counterTotal.textContent = lightboxItems.length;
+  }
+
+  function getFocusableLightboxElements() {
+    return Array.from(lightbox.querySelectorAll('button, [href], video[controls], [tabindex]:not([tabindex="-1"])'));
   }
 
   function openLightbox(index) {
+    lastFocusedElement = document.activeElement;
     currentIndex = index;
-    showMedia(currentIndex);
     lightbox.classList.add("visible");
+    lightbox.setAttribute("aria-hidden", "false");
     document.body.classList.add("no-scroll");
+    showMedia(currentIndex);
+    // Move focus into the dialog (GAL-05).
+    if (closeBtn) closeBtn.focus();
   }
 
   function closeLightbox() {
     lightbox.classList.remove("visible");
+    lightbox.setAttribute("aria-hidden", "true");
     lightboxContent.innerHTML = '';
     document.body.classList.remove("no-scroll");
+    // Return focus to the thumbnail that opened the lightbox (GAL-05).
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
+    lastFocusedElement = null;
+  }
+
+  function stepLightbox(delta) {
+    if (!lightboxItems.length) return;
+    currentIndex = (currentIndex + delta + lightboxItems.length) % lightboxItems.length;
+    showMedia(currentIndex);
   }
 
   galleryItems.forEach(function (item) {
     item.addEventListener("click", function (e) {
       e.preventDefault();
-      var visibleItems = getVisibleItems();
-      var idx = visibleItems.indexOf(item);
+      refreshLightboxItems();
+      var idx = lightboxItems.indexOf(item);
       if (idx === -1) idx = 0;
       openLightbox(idx);
     });
@@ -319,34 +346,35 @@ document.addEventListener("DOMContentLoaded", function () {
   if (nextBtn) {
     nextBtn.addEventListener("click", function (e) {
       e.stopPropagation();
-      var total = getMediaSources().length;
-      currentIndex = (currentIndex + 1) % total;
-      showMedia(currentIndex);
+      stepLightbox(1);
     });
   }
 
   if (prevBtn) {
     prevBtn.addEventListener("click", function (e) {
       e.stopPropagation();
-      var total = getMediaSources().length;
-      currentIndex = (currentIndex - 1 + total) % total;
-      showMedia(currentIndex);
+      stepLightbox(-1);
     });
   }
 
-  // Keyboard navigation
+  // Keyboard navigation + focus trap (GAL-05)
   document.addEventListener("keydown", function (e) {
     if (!lightbox || !lightbox.classList.contains("visible")) return;
     if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") {
-      var total = getMediaSources().length;
-      currentIndex = (currentIndex + 1) % total;
-      showMedia(currentIndex);
-    }
-    if (e.key === "ArrowLeft") {
-      var total = getMediaSources().length;
-      currentIndex = (currentIndex - 1 + total) % total;
-      showMedia(currentIndex);
+    if (e.key === "ArrowRight") stepLightbox(1);
+    if (e.key === "ArrowLeft") stepLightbox(-1);
+    if (e.key === "Tab") {
+      var focusables = getFocusableLightboxElements();
+      if (!focusables.length) return;
+      var first = focusables[0];
+      var last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
   });
 
@@ -359,14 +387,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     lightbox.addEventListener('touchend', function (e) {
       var diff = e.changedTouches[0].screenX - touchStartX;
-      var total = getMediaSources().length;
       if (Math.abs(diff) > 50) {
-        if (diff < 0) {
-          currentIndex = (currentIndex + 1) % total;
-        } else {
-          currentIndex = (currentIndex - 1 + total) % total;
-        }
-        showMedia(currentIndex);
+        stepLightbox(diff < 0 ? 1 : -1);
       }
     }, { passive: true });
   }
