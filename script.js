@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (reason === 'location') {
       heading.textContent = 'Thank you for your interest in Agribridge';
-      message.textContent = "We currently consider candidates based in Ireland, Scotland, elsewhere in the UK, Germany, Norway, the Netherlands, and Finland. We can't progress applications from other locations at this time.";
+      message.textContent = "AgriBridge currently considers candidates based in Ireland, the UK (including Scotland), Germany, Norway, the Netherlands, or Finland. We can't progress applications from other locations at this time.";
       visaInformation.classList.add('d-none');
       recheckLink.hidden = true;
     } else if (reason === 'unsure') {
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
       recheckLink.hidden = false;
     } else if (reason === 'passport') {
       heading.textContent = 'We can’t progress this application';
-      message.textContent = 'At present, we can only consider applicants holding passports issued by Ireland, the United Kingdom, Germany, Norway, the Netherlands, or Finland. We’re unable to progress applications with other passports at this time.';
+      message.textContent = 'AgriBridge currently considers candidates based in Ireland, the UK (including Scotland), Germany, Norway, the Netherlands, or Finland. Applicants must hold a passport issued by one of those countries; we’re unable to progress applications with other passports at this time.';
       visaInformation.classList.add('d-none');
       recheckLink.hidden = true;
     } else {
