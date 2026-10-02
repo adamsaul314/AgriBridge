@@ -1,0 +1,55 @@
+# --- Local docs ---
+# Audit reports, decision records, etc. are kept local, not committed.
+*.md
+
+# --- OS / editor cruft ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# --- Media belongs in Google Cloud Storage, not in git ---
+# Images, logos, posters and video are uploaded to gs://agribridge and served by
+# public bucket URL. The local copies are kept only as upload sources; publish
+# them with scripts/upload-media.sh. See DECISIONS.md and ISSUES.md (REPO-01/02).
+/assets/**/*.jpg
+/assets/**/*.jpeg
+/assets/**/*.png
+/assets/**/*.gif
+/assets/**/*.webp
+/assets/**/*.svg
+/assets/**/*.ico
+/assets/**/*.mp4
+/assets/**/*.mov
+/assets/**/*.avi
+/assets/**/*.mkv
+/assets/carousel/
+
+# Small brand chrome stays in the repo: same-origin favicon and Open Graph
+# image, and reviewable logo changes. Everything else under assets/ is an
+# upload source for the bucket.
+!/assets/images/hero-poster.jpg
+!/assets/logos/agribridge-logo.png
+!/assets/logos/Transparent Logo.png
+!/assets/logos/Favicon Transparent.ico
+
+# --- Cloud credentials: never commit ---
+# scripts/upload-media.sh authenticates via `gcloud auth login` (Application
+# Default Credentials), so no key files are ever needed in the repo. These
+# patterns stop a service-account key being added by accident.
+.gcloud/
+service-account*.json
+*-service-account.json
+application_default_credentials.json
+*-key.json
+*.pem
+*.p12
