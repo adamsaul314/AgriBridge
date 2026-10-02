@@ -42,17 +42,12 @@
     </div>
   </nav>
 
-  <!-- Hero Section with Video/Carousel Background -->
+  <!-- Hero Section with Looping Video Background -->
   <section class="home-hero">
-    <div id="homeHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-      <div class="carousel-inner">
-        <div class="carousel-item active" id="hero-video-slide">
-          <video id="hero-video" class="d-block w-100 hero-bg" autoplay muted playsinline loop>
-            <source src="https://storage.googleapis.com/agribridge/WEBSITEE%20BANNNER%20ADAM.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
+    <video id="hero-video" class="d-block w-100 hero-bg" autoplay muted playsinline loop preload="metadata"
+      poster="assets/images/hero-poster.jpg" aria-hidden="true">
+      <source src="assets/videos/hero.mp4" type="video/mp4">
+    </video>
     <div class="home-hero-overlay">
       <div class="container text-center">
         <p class="hero-subtitle">International Agricultural Recruitment Consultants</p>
@@ -348,35 +343,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
-  <script>
-    (function () {
-      var carousel = document.getElementById('homeHeroCarousel');
-      var video = document.getElementById('hero-video');
-      if (!carousel || !video) return;
-
-      var bsCarousel = bootstrap.Carousel.getInstance(carousel) || new bootstrap.Carousel(carousel, { interval: 4000 });
-
-      // Pause carousel while video plays
-      video.addEventListener('play', function () {
-        bsCarousel.pause();
-      });
-
-      // When video ends, move to next slide and resume
-      video.addEventListener('ended', function () {
-        bsCarousel.next();
-        bsCarousel.cycle();
-      });
-
-      // If video slide is revisited, replay the video
-      carousel.addEventListener('slid.bs.carousel', function (e) {
-        if (e.to === 0) {
-          video.currentTime = 0;
-          video.play();
-        } else {
-          video.pause();
-        }
-      });
-    })();
-  </script>
 </body>
 </html>

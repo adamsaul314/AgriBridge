@@ -1505,13 +1505,8 @@ section .img-fluid:hover {
   height: 100vh;
   min-height: 700px;
   overflow: hidden;
+  background-color: #023047;
   z-index: 1;
-}
-
-.home-hero .carousel-inner,
-.home-hero .carousel-item {
-  height: 100vh;
-  min-height: 700px;
 }
 
 .home-hero .hero-bg {
@@ -1525,6 +1520,17 @@ section .img-fluid:hover {
 @keyframes heroZoom {
   from { transform: scale(1); }
   to { transform: scale(1.08); }
+}
+
+/* Respect users who prefer reduced motion: show the poster instead of playing video */
+@media (prefers-reduced-motion: reduce) {
+  .home-hero {
+    background: #023047 url("assets/images/hero-poster.jpg") center / cover no-repeat;
+  }
+  .home-hero .hero-bg {
+    display: none;
+    animation: none;
+  }
 }
 
 .home-hero-overlay {
@@ -1648,9 +1654,7 @@ section .img-fluid:hover {
 }
 
 @media (max-width: 768px) {
-  .home-hero,
-  .home-hero .carousel-inner,
-  .home-hero .carousel-item {
+  .home-hero {
     height: 100vh;
     min-height: 600px;
   }
@@ -2636,9 +2640,7 @@ section.py-5 {
   }
 
   /* --- Hero Section --- */
-  .home-hero,
-  .home-hero .carousel-inner,
-  .home-hero .carousel-item {
+  .home-hero {
     height: 85vh;
     min-height: 500px;
   }
