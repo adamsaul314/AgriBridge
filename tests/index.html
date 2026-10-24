@@ -37,6 +37,10 @@
   <div id="fixtures" aria-hidden="true">
     <span class="js-email" data-u="recruitment" data-d="xm.moc.egdirbirga"></span>
 
+    <nav class="navbar">
+      <div class="d-flex"><a href="#apply">Apply</a></div>
+    </nav>
+
     <a id="fixture-card" href="#stored" data-application-form="https://docs.google.com/forms/d/e/EXAMPLE/viewform"></a>
 
     <form id="country-gate-form">
@@ -108,6 +112,9 @@
       INELIGIBLE_MESSAGES,
       initFooterEmail,
       initApplicationCards,
+      initThemeToggle,
+      currentTheme,
+      THEME_KEY,
       initGateOutcome,
       initGallery,
       TARGET_FORM_KEY
@@ -302,6 +309,28 @@
       link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
       assertEqual(sessionStorage.getItem(TARGET_FORM_KEY),
         "https://docs.google.com/forms/d/e/EXAMPLE/viewform");
+    });
+
+    group("DOM: theme toggle");
+    test("toggle inserts a button and switches themes", () => {
+      localStorage.removeItem(THEME_KEY);
+      document.documentElement.removeAttribute("data-theme");
+      initThemeToggle();
+
+      const button = document.getElementById("theme-toggle");
+      assert(button, "toggle button should be created");
+      assertEqual(button.getAttribute("aria-pressed"), "false");
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      assertEqual(currentTheme(), "dark");
+      assertEqual(button.getAttribute("aria-pressed"), "true");
+      assertEqual(localStorage.getItem(THEME_KEY), "dark");
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      assertEqual(currentTheme(), "light");
+      assertEqual(button.getAttribute("aria-pressed"), "false");
+
+      localStorage.removeItem(THEME_KEY);
     });
 
     group("DOM: gate outcome messaging");

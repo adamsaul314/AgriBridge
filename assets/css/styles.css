@@ -2172,3 +2172,322 @@ section.py-5 {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   LIGHT / DARK THEME
+   --------------------------------------------------------------------------
+   theme.js sets data-theme on <html> before first paint, and the navbar
+   toggle (initialised in app.js) flips it. Light is the original design; the
+   [data-theme="dark"] overrides below restyle the shared light surfaces while
+   leaving the already-dark hero, destinations and footer sections untouched.
+   ========================================================================== */
+
+html {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ===== Navbar toggle ===== */
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(2, 48, 71, 0.15);
+  background: #eef4f1;
+  color: #023047;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: #dfeee5;
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid #20c997;
+  outline-offset: 2px;
+}
+
+@media (min-width: 992px) {
+  .navbar > .container > .theme-toggle {
+    order: 3;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar > .container > .navbar-toggler {
+    margin-left: auto;
+  }
+
+  .navbar > .container > .theme-toggle {
+    margin-left: 8px;
+  }
+}
+
+/* ===== Dark theme: base chrome ===== */
+[data-theme="dark"] body {
+  background-color: #0b1220;
+  color: #dbe4ee;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+[data-theme="dark"] .navbar.bg-white {
+  background-color: #0f1829 !important;
+}
+
+[data-theme="dark"] .navbar {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+[data-theme="dark"] .navbar .nav-link {
+  color: #c7d4e2;
+}
+
+[data-theme="dark"] .navbar .nav-link:hover,
+[data-theme="dark"] .navbar .nav-link.active {
+  color: #5de89e;
+}
+
+[data-theme="dark"] .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+  filter: invert(1) brightness(2);
+}
+
+/* The navbar logo has black lettering; swap in the footer's white-lettering
+   version as a background while the original image keeps the layout size. */
+[data-theme="dark"] .navbar-brand {
+  display: inline-block;
+  background: url("../logos/Transparent Logo.png") center / contain no-repeat;
+}
+
+[data-theme="dark"] .navbar-brand .navbar-logo {
+  opacity: 0;
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #e8f1f7;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="dark"] .dropdown-menu {
+  background-color: #111b2e;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: #c7d4e2;
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-item:focus {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #5de89e;
+}
+
+/* ===== Dark theme: light page sections ===== */
+[data-theme="dark"] .section-arrange,
+[data-theme="dark"] .section-about-home,
+[data-theme="dark"] .section-how-we-operate,
+[data-theme="dark"] .section-support {
+  background: linear-gradient(180deg, #0d1a2b 0%, #0b1220 100%);
+}
+
+[data-theme="dark"] .section-findwork {
+  background: #0b1220;
+}
+
+[data-theme="dark"] .section-employers,
+[data-theme="dark"] .section-faq {
+  background: linear-gradient(180deg, #0b1220 0%, #0d1728 100%);
+}
+
+[data-theme="dark"] .section-testimonials,
+[data-theme="dark"] .section-steps {
+  background: linear-gradient(180deg, #0d1a2b 0%, #0b1220 100%);
+}
+
+/* ===== Dark theme: typography ===== */
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .subsection-title,
+[data-theme="dark"] .faq-group-header,
+[data-theme="dark"] .faq-cta-block h3,
+[data-theme="dark"] .staffing-highlight-title,
+[data-theme="dark"] .arrange-card h4,
+[data-theme="dark"] .step-card h4,
+[data-theme="dark"] .testimonial-card-home cite,
+[data-theme="dark"] .testimonial-slide h5 {
+  color: #e8f1f7;
+}
+
+[data-theme="dark"] .section-subtitle,
+[data-theme="dark"] .arrange-card p,
+[data-theme="dark"] .step-card p,
+[data-theme="dark"] .faq-cta-block p,
+[data-theme="dark"] .testimonial-card-home blockquote,
+[data-theme="dark"] .testimonial-slide p {
+  color: #a8b8c8;
+}
+
+[data-theme="dark"] .text-muted {
+  color: #9fb0c0 !important;
+}
+
+/* ===== Dark theme: cards ===== */
+[data-theme="dark"] .arrange-card,
+[data-theme="dark"] .step-card,
+[data-theme="dark"] .testimonial-card-home,
+[data-theme="dark"] .gallery-card,
+[data-theme="dark"] .faq-accordion .accordion-item,
+[data-theme="dark"] .faq-accordion .accordion-button {
+  background: #111b2e;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .faq-accordion .accordion-button {
+  color: #e8f1f7;
+}
+
+[data-theme="dark"] .faq-accordion .accordion-button:not(.collapsed) {
+  background: #0d2a20;
+  color: #5de89e;
+}
+
+[data-theme="dark"] .faq-accordion .accordion-button::after {
+  filter: invert(1);
+}
+
+[data-theme="dark"] .faq-accordion .accordion-body {
+  background: #0f1829;
+  color: #a8b8c8;
+}
+
+[data-theme="dark"] .faq-cta-block {
+  background: linear-gradient(135deg, #0d2a20 0%, #0b2119 100%);
+  border-color: rgba(93, 232, 158, 0.15);
+}
+
+[data-theme="dark"] .faq-cta-icon,
+[data-theme="dark"] .faq-q-icon {
+  color: #5de89e;
+}
+
+[data-theme="dark"] .staffing-highlight-block {
+  background: linear-gradient(135deg, #0d2a20 0%, #0b2119 100%);
+  border-color: rgba(93, 232, 158, 0.12);
+}
+
+/* ===== Dark theme: application gate / 404 ===== */
+[data-theme="dark"] .country-gate-page,
+[data-theme="dark"] .country-closed-page {
+  background: linear-gradient(135deg, #0a1422 0%, #0b1220 100%);
+}
+
+[data-theme="dark"] .country-gate-card {
+  background: #111b2e;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .country-gate-card h1,
+[data-theme="dark"] .country-gate-form > .form-group > label,
+[data-theme="dark"] .country-gate-form legend {
+  color: #e8f1f7;
+}
+
+[data-theme="dark"] .country-gate-text,
+[data-theme="dark"] .country-closed-card p,
+[data-theme="dark"] .country-gate-form .form-check-label {
+  color: #a8b8c8;
+}
+
+[data-theme="dark"] .country-gate-form select,
+[data-theme="dark"] .country-gate-form input[type="text"] {
+  background: #0f1829;
+  color: #e8f1f7;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .country-gate-eyebrow {
+  color: #5de89e;
+  background: rgba(93, 232, 158, 0.1);
+}
+
+[data-theme="dark"] .country-status-icon {
+  background: rgba(220, 53, 69, 0.18);
+  color: #ff8a8a;
+}
+
+/* ===== Dark theme: gallery ===== */
+[data-theme="dark"] .gallery-thumb {
+  background: #0f1829;
+}
+
+[data-theme="dark"] .filter-btn {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #c7d4e2;
+}
+
+[data-theme="dark"] .filter-btn:hover,
+[data-theme="dark"] .filter-btn.active {
+  background: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+[data-theme="dark"] .pagination .page-item .page-link {
+  background-color: #111b2e;
+  color: #c7d4e2;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .pagination .page-item .page-link:hover {
+  background-color: #17243a;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+/* ===== Dark theme: outline buttons ===== */
+[data-theme="dark"] .btn-outline-dark {
+  color: #dbe4ee;
+  border-color: #dbe4ee;
+}
+
+[data-theme="dark"] .btn-outline-dark:hover {
+  background: #dbe4ee;
+  color: #0b1220;
+}
+
+[data-theme="dark"] .btn-outline-success {
+  color: #5de89e;
+  border-color: #5de89e;
+}
+
+[data-theme="dark"] .btn-outline-success:hover {
+  background: #5de89e;
+  color: #06251a;
+}

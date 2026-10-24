@@ -234,7 +234,7 @@ export const GATE_OUTCOMES = {
   location: {
     heading: 'Thank you for your interest in Agribridge',
     message: function () {
-      return "AgriBridge currently considers candidates based in Ireland, the UK (including Scotland), Germany, Norway, the Netherlands, or Finland. We can't progress applications from other locations at this time.";
+      return "AgriBridge currently considers candidates based in Ireland, the UK, or Europe. We can't progress applications from other locations at this time.";
     },
     showVisaInformation: false,
     showRecheck: false
@@ -242,7 +242,7 @@ export const GATE_OUTCOMES = {
   passport: {
     heading: 'We can’t progress this application',
     message: function () {
-      return 'AgriBridge currently considers candidates based in Ireland, the UK (including Scotland), Germany, Norway, the Netherlands, or Finland. Applicants must hold a passport issued by one of those countries; we’re unable to progress applications with other passports at this time.';
+      return 'AgriBridge currently considers candidates based in Ireland, the UK, or Europe. Applicants must hold an Irish, UK, or European passport; we’re unable to progress applications with other passports at this time.';
     },
     showVisaInformation: false,
     showRecheck: false
@@ -588,9 +588,74 @@ export function initGallery() {
   return { openLightbox, closeLightbox, stepLightbox, refreshLightboxItems };
 }
 
+// ===== Colour theme (light/dark) =====
+// theme.js applies the initial theme before first paint; this feature wires the
+// navbar toggle and persists the visitor's choice. Every storage access is
+// guarded because storage can be unavailable (private mode, disabled storage).
+export const THEME_KEY = 'agribridge-theme';
+
+export function currentTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function updateThemeToggle(theme) {
+  const button = document.getElementById('theme-toggle');
+  if (!button) return;
+
+  const isDark = theme === 'dark';
+  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+  button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  button.setAttribute('aria-label', label);
+  button.setAttribute('title', label);
+  button.innerHTML = '<i class="fa-solid ' +
+    (isDark ? 'fa-sun' : 'fa-moon') + '" aria-hidden="true"></i>';
+}
+
+export function applyTheme(theme) {
+  const next = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  document.documentElement.style.colorScheme = next;
+
+  try {
+    window.localStorage.setItem(THEME_KEY, next);
+  } catch (error) {
+    // Persisting is best-effort; the theme still applies for this page.
+  }
+
+  updateThemeToggle(next);
+}
+
+export function initThemeToggle() {
+  const nav = document.querySelector('.navbar');
+  if (!nav || document.getElementById('theme-toggle')) return;
+
+  const container = nav.querySelector('.container') || nav;
+  const collapse = nav.querySelector('.navbar-collapse');
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.id = 'theme-toggle';
+  button.className = 'theme-toggle';
+
+  // Sit next to the mobile menu button, then move to the far right on desktop
+  // via the order rule in the stylesheet.
+  if (collapse && collapse.parentNode === container) {
+    container.insertBefore(button, collapse);
+  } else {
+    container.appendChild(button);
+  }
+
+  updateThemeToggle(currentTheme());
+
+  button.addEventListener('click', function () {
+    applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+  });
+}
+
 // ===== Bootstrap =====
 export function bootstrap() {
   runFeature('application cards', initApplicationCards);
+  runFeature('theme toggle', initThemeToggle);
   runFeature('footer email', initFooterEmail);
   runFeature('eligibility gate', initEligibilityGate);
   runFeature('gate outcome messaging', initGateOutcome);
